@@ -20,6 +20,11 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 32px;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 48px 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 .statItem {
@@ -28,7 +33,13 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  flex: 1;
   min-width: 140px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.statItem:last-child {
+  border-right: none;
 }
 
 .statIcon {
@@ -57,6 +68,7 @@
 }
 
 @media (max-width: 640px) {
-  .grid { justify-content: center; gap: 24px 40px; }
+  .grid { justify-content: center; gap: 32px 20px; padding: 40px 20px; }
   .statValue { font-size: 2.2rem; }
+  .statItem { border-right: none; flex: 1 1 40%; }
 }

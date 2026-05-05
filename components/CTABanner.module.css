@@ -1,0 +1,191 @@
+.banner {
+  background: var(--bg-navy);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgDecor {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at top right, rgba(45, 107, 228, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at bottom left, rgba(123, 79, 255, 0.15) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: floatUp 15s infinite linear;
+  animation-delay: calc(var(--i) * 2s);
+  left: calc(10% + var(--i) * 10%);
+  bottom: -10px;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 0.4; }
+  80% { opacity: 0.4; }
+  100% { transform: translateY(-800px) scale(2); opacity: 0; }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.left {
+  color: white;
+}
+
+.tag {
+  display: inline-block;
+  background: rgba(232, 160, 32, 0.15);
+  color: var(--accent-light);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(232, 160, 32, 0.3);
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.accentText {
+  background: linear-gradient(135deg, var(--primary-light) 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.desc {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+
+.checkMark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(37, 211, 102, 0.2);
+  color: #25d366;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+/* Right Side CTA Card */
+.ctaCard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.ctaCardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.ctaCardDesc {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+}
+
+.ctaBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btnApply, .btnCall, .btnWhatsApp {
+  width: 100%;
+  padding: 16px !important;
+  font-size: 1.05rem !important;
+  justify-content: center;
+}
+
+.btnApply {
+  background: linear-gradient(135deg, var(--accent) 0%, #ff8c00 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 25px rgba(232, 160, 32, 0.4);
+}
+
+.btnApply:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(232, 160, 32, 0.6);
+}
+
+.btnCall {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btnCall:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.ctaNote {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+@media (max-width: 960px) {
+  .content { grid-template-columns: 1fr; gap: 48px; }
+  .title { font-size: 2.4rem; }
+  .ctaCard { padding: 32px 24px; max-width: 480px; margin: 0 auto; width: 100%; }
+}

@@ -1,0 +1,255 @@
+.header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 52px;
+}
+.header .section-subtitle { margin: 0 auto; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Cost Card */
+.costCard {
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px 30px;
+  border: 1px solid rgba(45, 107, 228, 0.1);
+  box-shadow: 0 10px 40px rgba(13, 27, 62, 0.05);
+}
+
+.costCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.costCardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.totalBadge {
+  background: linear-gradient(135deg, #2D6BE4, #7B4FFF);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+
+.costGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.costItem {
+  display: grid;
+  grid-template-columns: 36px 1fr 120px;
+  align-items: center;
+  gap: 12px;
+}
+
+.costIcon { font-size: 1.3rem; }
+
+.costInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.costLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.costRange {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.costBar {
+  height: 6px;
+  background: #F3F4F6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.costBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #2D6BE4, #7B4FFF);
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+/* Comparison */
+.comparison {
+  border-top: 1px solid #F3F4F6;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.compareItem {
+  display: grid;
+  grid-template-columns: 28px 1fr 120px;
+  align-items: center;
+  gap: 12px;
+}
+
+.compareFlag { font-size: 1.4rem; }
+
+.compareItem div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.compareItem strong {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.compareItem span {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.compareBar {
+  height: 8px;
+  background: #F3F4F6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.compareBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.2s ease;
+}
+
+/* Right column */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.partTimeCard {
+  background: linear-gradient(135deg, #0D1B3E 0%, #1A3C8F 100%);
+  border-radius: 24px;
+  padding: 32px;
+  color: white;
+  box-shadow: 0 15px 45px rgba(13, 27, 62, 0.2);
+}
+
+.partTimeTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.partTimeDesc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.partTimeItems {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.partTimeItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.partTimeIcon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+
+.partTimeItemTitle {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.partTimeItemDesc {
+  font-size: 0.79rem;
+  color: rgba(255,255,255,0.70);
+  line-height: 1.5;
+}
+
+/* Accommodation card */
+.accommodationCard {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid rgba(45, 107, 228, 0.1);
+  box-shadow: 0 10px 40px rgba(13, 27, 62, 0.05);
+}
+
+.accomEmoji { font-size: 2rem; margin-bottom: 10px; }
+
+.accomTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.accomDesc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.accomFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.accomFeatures span {
+  background: #F4F7FF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.accomBtn {
+  width: 100%;
+  justify-content: center;
+  padding: 11px !important;
+  font-size: 0.85rem !important;
+  border-radius: 10px !important;
+}
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .costItem { grid-template-columns: 36px 1fr 90px; }
+  .compareItem { grid-template-columns: 28px 1fr 90px; }
+}

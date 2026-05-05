@@ -1,78 +1,56 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import styles from './Testimonials.module.css';
+import Link from 'next/link';
 
-const testimonials = [
+const students = [
   {
     name: 'Rahul Sharma',
-    country: '🇮🇳 India',
-    course: 'BSc Computer Science — CIT',
-    year: '2024',
-    quote: 'Moving to Albania was the best decision of my life. The tuition is incredibly affordable, professors are world-class, and the city of Tirana is beautiful. I got an internship in my second year with a tech firm!',
-    rating: 5,
-    avatar: 'RS',
-    avatarColor: '#2D6BE4',
+    course: 'BSc Computer Science',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: 'Moving to Albania was the best decision of my life. Affordable tuition, world-class professors, and I landed an internship in my second year!',
   },
   {
     name: 'Amina Hassan',
-    country: '🇳🇬 Nigeria',
-    course: 'BEng Civil Engineering — Epoka',
-    year: '2024',
-    quote: 'I compared dozens of European countries before choosing Albania. Nothing matched the value — English programs, ECTS credits, safe campus, and living costs I could actually manage on my budget.',
-    rating: 5,
-    avatar: 'AH',
-    avatarColor: '#7B4FFF',
+    course: 'BEng Civil Engineering',
+    photo: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: 'English programs, ECTS credits, safe campus, and living costs I could actually manage. Albania was the perfect choice for my future.',
   },
   {
     name: 'Syed Ahmed',
-    country: '🇵🇰 Pakistan',
-    course: 'MBA Business — Mediterranean Uni',
-    year: '2023',
-    quote: 'The counselling team was phenomenal. They handled everything from admission to visa to finding accommodation. I arrived in Tirana feeling fully prepared. My MBA is opening doors I never imagined.',
-    rating: 5,
-    avatar: 'SA',
-    avatarColor: '#E8A020',
+    course: 'MBA Business',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: 'The counselling team handled everything — admission, visa, accommodation. I arrived fully prepared. My MBA is opening doors I never imagined.',
   },
   {
     name: 'Priya Nair',
-    country: '🇮🇳 India',
-    course: 'LLB Law — Luarasi University',
-    year: '2024',
-    quote: 'Albania surprised me in the best possible way. The legal faculty is exceptional, and studying European law from inside Europe is a massive advantage. Part-time work helps cover most of my expenses.',
-    rating: 5,
-    avatar: 'PN',
-    avatarColor: '#25D366',
+    course: 'LLB Law',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: 'The legal faculty is exceptional. Studying European law from inside Europe is a massive advantage. Part-time work covers most of my expenses!',
   },
   {
     name: 'Daniel Osei',
-    country: '🇬🇭 Ghana',
-    course: 'BSc IT — Western Balkans Uni',
-    year: '2023',
-    quote: 'The technology program at WBU is cutting-edge. I\'m learning AI and Cloud Computing while getting real project experience. The EU pathway after graduation is a massive plus for my career goals.',
-    rating: 5,
-    avatar: 'DO',
-    avatarColor: '#EF4444',
+    course: 'BSc Info Technology',
+    photo: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: 'Cutting-edge tech program. The EU pathway after graduation is a massive plus for my career goals.',
   },
   {
     name: 'Fatima Malik',
-    country: '🇧🇩 Bangladesh',
-    course: 'MSc Architecture — Epoka',
-    year: '2024',
-    quote: 'Epoka University\'s architecture department has studios, labs, and mentors that rival any European institution. At a fraction of the cost. My work is getting recognized internationally now.',
-    rating: 5,
-    avatar: 'FM',
-    avatarColor: '#0891B2',
-  },
+    course: 'MSc Architecture',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop&crop=face',
+    quote: "Studios, labs, and mentors that rival any European institution — at a fraction of the cost.",
+  }
 ];
 
 export default function Testimonials() {
   const sectionRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.fade-up').forEach((el, i) => {
-            setTimeout(() => el.classList.add('visible'), i * 100);
+          entry.target.querySelectorAll(`.${styles.cardWrap}`).forEach((el, i) => {
+            setTimeout(() => el.classList.add(styles.visible), i * 110);
           });
         }
       }),
@@ -83,44 +61,91 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="section" id="testimonials" ref={sectionRef}>
-      <div className="container">
-        <div className={styles.header}>
-          <div className="section-tag fade-up">⭐ Student Stories</div>
-          <h2 className="section-title fade-up">
-            Real Students,<br />
-            <span className="gradient-text">Real Success</span>
-          </h2>
-          <p className="section-subtitle fade-up">
-            Hear from students who chose Albania and transformed their futures. These are real stories from our alumni.
-          </p>
-        </div>
+    <section className={styles.section} id="testimonials" ref={sectionRef}>
+      <div className={styles.inner}>
+        <div className={styles.container}>
+          {/* Top Bar inside container */}
+          <div className={styles.topBar}>
+            <div className={styles.asterisk}>*</div>
+            <div className={styles.topBarText}>003 / SIMPLIFYING GLOBAL EDUCATION FOR EVERYONE</div>
+          </div>
 
-        <div className={styles.grid}>
-          {testimonials.map((t, i) => (
-            <div key={i} className={`${styles.card} fade-up`}>
-              <div className={styles.cardTop}>
-                <div className={styles.avatar} style={{ background: t.avatarColor }}>{t.avatar}</div>
-                <div className={styles.studentInfo}>
-                  <strong className={styles.studentName}>{t.name}</strong>
-                  <span className={styles.studentCountry}>{t.country}</span>
-                  <span className={styles.studentCourse}>{t.course}</span>
-                </div>
-                <div className={styles.yearBadge}>{t.year}</div>
+          <div className={styles.content}>
+            {/* Left Column */}
+            <div className={styles.leftCol}>
+              <div className={styles.tags}>
+                <span className={`${styles.tag} ${styles.active}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                  </svg>
+                  Alumni Stories
+                </span>
+                <span className={styles.tag}>Undergraduates</span>
+                <span className={styles.tag}>Postgraduates</span>
               </div>
-
-              <div className={styles.stars}>
-                {'★'.repeat(t.rating)}
-                {'☆'.repeat(5 - t.rating)}
-              </div>
-
-              <p className={styles.quote}>"{t.quote}"</p>
+              
+              <h2 className={styles.title}>
+                Meet our successful students
+              </h2>
+              
+              <p className={styles.subtitle}>
+                Our students are revolutionizing their careers by getting world-class European education. With a focus on practical skills and global recognition, they are shaping a more efficient and secure future.
+              </p>
+              
+              <Link href="#apply" className={styles.ctaBtn}>
+                View All Stories 
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '4px' }}>
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </Link>
             </div>
-          ))}
-        </div>
 
-        <div className={`${styles.ctaRow} fade-up`}>
-          <a href="#apply" className="btn btn-primary">Join These Students — Apply Free</a>
+            {/* Right Column Grid */}
+            <div className={styles.rightCol}>
+              {students.map((s, i) => (
+                <div key={i} className={styles.cardWrap} style={{ opacity: 1, transform: 'none' }}>
+                  <div className={styles.cardInner}>
+                    
+                    {/* Front */}
+                    <div className={styles.front}>
+                      <div className={styles.photoBox}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={s.photo} alt={s.name} className={styles.photo} loading="lazy" />
+                      </div>
+                      <div className={styles.frontFooter}>
+                        <p className={styles.frontRole}>{s.course}</p>
+                        <p className={styles.frontName}>{s.name}</p>
+                      </div>
+                    </div>
+
+                    {/* Back */}
+                    <div className={styles.back}>
+                      <div className={styles.backTop}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={s.photo} alt={s.name} className={styles.backAvatar} loading="lazy" />
+                        <div className={styles.backMeta}>
+                          <p className={styles.backRole}>{s.course}</p>
+                          <p className={styles.backName}>{s.name}</p>
+                        </div>
+                        <div className={styles.playBtn}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      <p className={styles.quote}>{s.quote}</p>
+                      
+                      <svg className={styles.sparkleIcon} viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                      </svg>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

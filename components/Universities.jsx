@@ -33,16 +33,6 @@ export default function Universities() {
     <section className={styles.section} id="universities" ref={sectionRef}>
       <div className={styles.inner}>
 
-        {/* ── Header ── */}
-        <div className={styles.header}>
-          <span className={`${styles.sectionTag} fade-up`}>🎓 Partner Universities</span>
-          <h2 className={`${styles.title} fade-up`}>
-            Top Universities in <span className={styles.accent}>Albania</span>
-          </h2>
-          <p className={`${styles.subtitle} fade-up`}>
-            All our partner universities are fully accredited, offering internationally recognized degrees with English-taught programs.
-          </p>
-        </div>
 
         {/* ── Grid ── */}
         <div className={styles.grid}>

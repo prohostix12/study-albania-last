@@ -1,6 +1,6 @@
 .statsBar {
   position: relative;
-  background: linear-gradient(135deg, #0D1B3E 0%, #1A3C8F 50%, #0D2460 100%);
+  background: #000000;
   padding: 70px 0;
   overflow: hidden;
 }

@@ -4,8 +4,6 @@ import WhyAlbania from '../components/WhyAlbania';
 import MovingBanner from '../components/MovingBanner';
 import CinematicSection from '../components/CinematicSection';
 import UniversitiesHome from '../components/UniversitiesHome';
-import Placement from '../components/Placement';
-import LivingCost from '../components/LivingCost';
 import StatsBar from '../components/StatsBar';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -21,8 +19,6 @@ export default function Home() {
       <MovingBanner />
       <CinematicSection />
       <UniversitiesHome />
-      <Placement />
-      <LivingCost />
       <StatsBar />
       <Testimonials />
       <FAQ />

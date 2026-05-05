@@ -14,9 +14,7 @@ export default function PlacementsPage() {
         subtitle="Global opportunities await. Our students are placed in top international companies across Europe and the globe."
         breadcrumb="Placements"
       />
-      <div style={{ backgroundColor: '#ffffff' }}>
-        <Placement />
-      </div>
+      <Placement />
       <Testimonials />
       <CTABanner />
       <Footer />

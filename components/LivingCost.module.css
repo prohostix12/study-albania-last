@@ -14,11 +14,11 @@
 
 /* Cost Card */
 .costCard {
-  background: #fff;
+  background: #1A1A1A;
   border-radius: 24px;
   padding: 36px 30px;
-  border: 1px solid rgba(45, 107, 228, 0.1);
-  box-shadow: 0 10px 40px rgba(13, 27, 62, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .costCardHeader {
@@ -34,7 +34,7 @@
   font-family: 'Outfit', sans-serif;
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--text-main);
+  color: #fff;
 }
 
 .totalBadge {
@@ -71,17 +71,17 @@
 .costLabel {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--text-main);
+  color: #fff;
 }
 
 .costRange {
   font-size: 0.76rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .costBar {
   height: 6px;
-  background: #F3F4F6;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -95,7 +95,7 @@
 
 /* Comparison */
 .comparison {
-  border-top: 1px solid #F3F4F6;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 24px;
   display: flex;
   flex-direction: column;
@@ -120,17 +120,17 @@
 .compareItem strong {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--text-main);
+  color: #fff;
 }
 
 .compareItem span {
   font-size: 0.74rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .compareBar {
   height: 8px;
-  background: #F3F4F6;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -149,11 +149,12 @@
 }
 
 .partTimeCard {
-  background: linear-gradient(135deg, #0D1B3E 0%, #1A3C8F 100%);
+  background: linear-gradient(135deg, #151515 0%, #1A1A1A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
   padding: 32px;
   color: white;
-  box-shadow: 0 15px 45px rgba(13, 27, 62, 0.2);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
 }
 
 .partTimeTitle {
@@ -199,11 +200,11 @@
 
 /* Accommodation card */
 .accommodationCard {
-  background: #fff;
+  background: #1A1A1A;
   border-radius: 24px;
   padding: 32px;
-  border: 1px solid rgba(45, 107, 228, 0.1);
-  box-shadow: 0 10px 40px rgba(13, 27, 62, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .accomEmoji { font-size: 2rem; margin-bottom: 10px; }
@@ -212,13 +213,13 @@
   font-family: 'Outfit', sans-serif;
   font-size: 1rem;
   font-weight: 800;
-  color: var(--text-main);
+  color: #fff;
   margin-bottom: 8px;
 }
 
 .accomDesc {
   font-size: 0.84rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.6;
   margin-bottom: 16px;
 }
@@ -231,13 +232,13 @@
 }
 
 .accomFeatures span {
-  background: #F4F7FF;
-  border: 1px solid #E5E7EB;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 5px 11px;
   font-size: 0.76rem;
   font-weight: 500;
-  color: #374151;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .accomBtn {

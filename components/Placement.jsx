@@ -47,16 +47,6 @@ export default function Placement() {
   return (
     <section className="section" id="placement" ref={sectionRef}>
       <div className="container">
-        <div className={styles.header}>
-          <div className="section-tag fade-up">💼 Career & Placement</div>
-          <h2 className="section-title fade-up">
-            Your Career Starts<br />
-            <span className="gradient-text">While You Study</span>
-          </h2>
-          <p className="section-subtitle fade-up">
-            We don't just get you a degree — we help you build a career. From internships to EU job placements, we've got you covered.
-          </p>
-        </div>
 
         <div className={styles.cards}>
           {placements.map((p, i) => (

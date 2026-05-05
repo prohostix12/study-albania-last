@@ -37,16 +37,6 @@ export default function LivingCost() {
   return (
     <section className="section-alt" id="living-cost" ref={sectionRef}>
       <div className="container">
-        <div className={styles.header}>
-          <div className="section-tag fade-up">💰 Living & Costs</div>
-          <h2 className="section-title fade-up">
-            Affordable Living,<br />
-            <span className="gradient-text">Exceptional Quality</span>
-          </h2>
-          <p className="section-subtitle fade-up">
-            Live comfortably in Tirana with a budget of just ₹25,000–₹40,000/month — far less than Western European cities.
-          </p>
-        </div>
 
         <div className={styles.layout}>
           {/* Cost Breakdown */}

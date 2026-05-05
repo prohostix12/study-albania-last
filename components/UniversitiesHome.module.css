@@ -1,6 +1,4 @@
-/* ─────────────────────────────────────────
-   Section
-───────────────────────────────────────── */
+/* ── Section ── */
 .section {
   background: #000;
   padding: 100px 0 110px;
@@ -13,9 +11,7 @@
   padding: 0 32px;
 }
 
-/* ─────────────────────────────────────────
-   Header
-───────────────────────────────────────── */
+/* ── Header ── */
 .header {
   text-align: center;
   margin-bottom: 52px;
@@ -23,10 +19,7 @@
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.headerVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.headerVisible { opacity: 1; transform: translateY(0); }
 
 .tag {
   display: inline-block;
@@ -61,65 +54,110 @@
   margin: 0 auto;
 }
 
-/* ─────────────────────────────────────────
-   Grid
-   grid-template-columns is set via inline
-   style from JS so it can animate smoothly.
-───────────────────────────────────────── */
-.grid {
-  display: grid;
-  /* columns injected by JS */
-  grid-template-rows: 220px 220px 200px;
-  grid-template-areas:
-    "cit  epoka   epoka"
-    "cit  wbu     wbu"
-    "mua  luarasi luarasi";
+/* ── Grid wrapper — vertical flex so top/bottom heights can accordion ── */
+.gridWrap {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  /* smooth accordion on column resize */
-  transition: grid-template-columns 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 680px;   /* total fixed height — top + gap + bottom */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+.gridVisible { opacity: 1; transform: translateY(0); }
+
+/* ── Top section: CIT | right panel ── */
+.topSection {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-height: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─────────────────────────────────────────
-   Area assignments
-───────────────────────────────────────── */
-.area_cit     { grid-area: cit; }
-.area_epoka   { grid-area: epoka; }
-.area_wbu     { grid-area: wbu; }
-.area_mua     { grid-area: mua; }
-.area_luarasi { grid-area: luarasi; }
+/* CIT wrapper — flex-grow animated by JS */
+.citWrap {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-/* ─────────────────────────────────────────
-   Card base
-───────────────────────────────────────── */
+/* Right panel — EPOKA stacked on WBU */
+.rightPanel {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Each card wrapper inside right panel — vertical accordion */
+.rightCard {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-height: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Bottom row: MUA | LUARASI ── */
+.bottomRow {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-height: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.muaWrap {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luarasiWrap {
+  flex-shrink: 0;
+  flex-basis: 0;
+  min-width: 0;
+  transition: flex-grow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Card ── */
 .card {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
+  width: 100%;
+  height: 100%;
 
   /* entry animation */
   opacity: 0;
-  transform: translateY(36px) scale(0.97);
+  transform: translateY(32px) scale(0.97);
   transition:
-    opacity    0.65s cubic-bezier(0.4,0,0.2,1),
-    transform  0.65s cubic-bezier(0.4,0,0.2,1),
-    box-shadow 0.45s ease;
+    opacity   0.65s cubic-bezier(0.4,0,0.2,1),
+    transform 0.65s cubic-bezier(0.4,0,0.2,1),
+    box-shadow 0.4s ease;
 }
-
 .cardVisible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-/* subtle lift on hover — no scale so grid columns can breathe */
-.cardHovered {
-  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-  z-index: 2;
+/* citWrap, rightCard and bottomRow wrappers fill their parent */
+.citWrap .card,
+.rightCard .card,
+.muaWrap .card,
+.luarasiWrap .card {
+  height: 100%;
 }
 
-/* ─────────────────────────────────────────
-   Image — zoom in on hover, no dimming
-───────────────────────────────────────── */
+/* ── Image ── */
 .cardImg {
   position: absolute;
   inset: 0;
@@ -130,9 +168,7 @@
 }
 .card:hover .cardImg { transform: scale(1.07); }
 
-/* ─────────────────────────────────────────
-   Gradient overlay — light, no darkening
-───────────────────────────────────────── */
+/* ── Overlay — light, no dimming ── */
 .overlay {
   position: absolute;
   inset: 0;
@@ -144,9 +180,7 @@
   );
 }
 
-/* ─────────────────────────────────────────
-   Card content
-───────────────────────────────────────── */
+/* ── Card content ── */
 .cardContent {
   position: absolute;
   bottom: 0;
@@ -181,7 +215,7 @@
 
 .cardName {
   font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #fff;
   line-height: 1.25;
@@ -192,13 +226,10 @@
 }
 .card:hover .cardName { transform: translateY(0); }
 
-.area_cit     .cardName { font-size: 1.35rem; }
-.area_epoka   .cardName { font-size: 1.15rem; }
-.area_mua     .cardName { font-size: 0.9rem;  }
+.nameLg { font-size: 1.4rem; }
+.nameSm { font-size: 0.9rem; }
 
-/* ─────────────────────────────────────────
-   Arrow (hover reveal)
-───────────────────────────────────────── */
+/* ── Arrow ── */
 .cardArrow {
   position: absolute;
   top: 16px;
@@ -206,9 +237,9 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.1);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,9 +254,7 @@
   background: rgba(255,255,255,0.22);
 }
 
-/* ─────────────────────────────────────────
-   CTA
-───────────────────────────────────────── */
+/* ── CTA ── */
 .cta {
   display: flex;
   justify-content: center;
@@ -259,36 +288,20 @@
   transform: translateY(-2px);
 }
 
-/* ─────────────────────────────────────────
-   Responsive
-───────────────────────────────────────── */
+/* ── Responsive ── */
 @media (max-width: 860px) {
-  .grid {
-    grid-template-columns: 1fr 1fr !important;
-    grid-template-rows: 280px 200px 200px;
-    grid-template-areas:
-      "cit    cit"
-      "epoka  wbu"
-      "mua    luarasi";
-    transition: none;
-  }
+  .gridWrap   { height: auto; }
+  .topSection { flex-grow: 1 !important; flex-direction: column; height: auto; transition: none; }
+  .bottomRow  { flex-grow: 1 !important; height: 180px; transition: none; }
+  .citWrap    { flex-grow: 1 !important; height: 280px; }
+  .rightPanel { flex-grow: 1 !important; height: 400px; }
 }
 
 @media (max-width: 540px) {
   .inner { padding: 0 16px; }
   .section { padding: 70px 0 80px; }
-  .grid {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: 240px 200px 200px 180px 180px;
-    grid-template-areas:
-      "cit"
-      "epoka"
-      "wbu"
-      "mua"
-      "luarasi";
-    transition: none;
-  }
-  .area_cit .cardName,
-  .area_epoka .cardName,
-  .area_mua .cardName { font-size: 1rem; }
+  .topSection { gap: 10px; }
+  .bottomRow  { flex-direction: column; height: auto; gap: 10px; transition: none; }
+  .muaWrap, .luarasiWrap { flex-grow: 1 !important; height: 180px; }
+  .nameLg { font-size: 1.1rem; }
 }

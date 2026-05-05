@@ -26,9 +26,12 @@ export default function HeroSection() {
           muted 
           playsInline 
           className={styles.heroBgVideo}
+          poster="/albania-hero.png"
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
+        {/* Fallback gradient if video fails */}
+        <div className={styles.heroBgFallback} />
       </div>
 
 

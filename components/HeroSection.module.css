@@ -22,6 +22,14 @@
   filter: contrast(1.1) saturate(1.15) brightness(1.05);
 }
 
+/* Fallback shown behind video — visible if video fails to load */
+.heroBgFallback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0D1B3E 0%, #1A3C8F 50%, #0D2460 100%);
+  z-index: -1;
+}
+
 .heroOverlay {
   position: absolute;
   inset: 0;

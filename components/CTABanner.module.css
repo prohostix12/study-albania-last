@@ -1,191 +1,197 @@
 .banner {
-  background: #000000;
-  padding: 80px 0;
+  padding: 100px 20px;
+  background: #000;
   position: relative;
   overflow: hidden;
-}
-
-.bgDecor {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at top right, rgba(45, 107, 228, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at bottom left, rgba(123, 79, 255, 0.15) 0%, transparent 40%);
-  pointer-events: none;
-}
-
-.particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--primary-light);
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: floatUp 15s infinite linear;
-  animation-delay: calc(var(--i) * 2s);
-  left: calc(10% + var(--i) * 10%);
-  bottom: -10px;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  20% { opacity: 0.4; }
-  80% { opacity: 0.4; }
-  100% { transform: translateY(-800px) scale(2); opacity: 0; }
-}
-
-.content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  position: relative;
+}
+
+/* Background image with overlay */
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://images.unsplash.com/photo-1590001158193-790dc0ca9a8a?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
   z-index: 2;
 }
 
-.left {
-  color: white;
+.container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
 }
 
-.tag {
-  display: inline-block;
-  background: rgba(232, 160, 32, 0.15);
-  color: var(--accent-light);
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 24px;
-  border: 1px solid rgba(232, 160, 32, 0.3);
+/* ── The Card (Asymmetric) ── */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 80px 60px;
+  border-radius: 40px 180px 40px 180px; /* Asymmetric corners like Dribbble */
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.cardVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 .title {
   font-family: 'Outfit', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: #111;
+  font-weight: 600;
   line-height: 1.1;
-  margin-bottom: 20px;
+  margin: 0;
+  max-width: 500px;
+  
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1) 0.3s;
 }
 
-.accentText {
-  background: linear-gradient(135deg, var(--primary-light) 0%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 280px;
+  line-height: 1.5;
+  margin: 0;
+  
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1) 0.5s;
 }
 
-.desc {
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 480px;
+.cardVisible .title,
+.cardVisible .subtitle {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.checkItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.9);
-  font-weight: 500;
-}
-
-.checkMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background: rgba(37, 211, 102, 0.2);
-  color: #25d366;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: 800;
-}
-
-/* Right Side CTA Card */
-.ctaCard {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px;
-  padding: 40px;
-  backdrop-filter: blur(20px);
-  text-align: center;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-}
-
-.ctaCardTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 8px;
-}
-
-.ctaCardDesc {
-  color: rgba(255,255,255,0.6);
-  font-size: 0.9rem;
-  margin-bottom: 32px;
-}
-
-.ctaBtns {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.btnApply, .btnCall, .btnWhatsApp {
+/* ── Email Form ── */
+.form {
   width: 100%;
-  padding: 16px !important;
-  font-size: 1.05rem !important;
-  justify-content: center;
+  max-width: 450px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 8px 8px 8px 24px;
+  border-radius: 100px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  /* Staggered animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1) 0.7s;
 }
 
-.btnApply {
-  background: linear-gradient(135deg, var(--accent) 0%, #ff8c00 100%);
-  color: white;
+.cardVisible .form {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form:focus-within {
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+  background: #fff;
+}
+
+.input {
+  flex: 1;
+  background: transparent;
   border: none;
-  box-shadow: 0 8px 25px rgba(232, 160, 32, 0.4);
+  outline: none;
+  font-size: 1rem;
+  color: #111;
+  padding: 12px 0;
 }
 
-.btnApply:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(232, 160, 32, 0.6);
+.input::placeholder {
+  color: #999;
 }
 
-.btnCall {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.2);
+.submitBtn {
+  width: 48px;
+  height: 48px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.btnCall:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: rgba(255,255,255,0.4);
+.submitBtn:hover {
+  background: #333;
+  transform: scale(1.05);
 }
 
-.ctaNote {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.5);
+.submitBtn svg {
+  width: 20px;
+  height: 20px;
 }
 
-@media (max-width: 960px) {
-  .content { grid-template-columns: 1fr; gap: 48px; }
-  .title { font-size: 2.4rem; }
-  .ctaCard { padding: 32px 24px; max-width: 480px; margin: 0 auto; width: 100%; }
+/* Responsive */
+@media (max-width: 900px) {
+  .card {
+    padding: 60px 40px;
+    border-radius: 40px 100px 40px 100px;
+  }
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 40px 30px;
+    border-radius: 30px 60px 30px 60px;
+  }
+  .title {
+    font-size: 2.2rem;
+  }
 }

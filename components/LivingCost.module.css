@@ -124,6 +124,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.costItem:hover {
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateX(5px);
 }
 
 .costMain {
@@ -169,6 +177,14 @@
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  padding: 12px;
+  border-radius: 16px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.featureItem:hover {
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateX(5px);
 }
 
 .featureIcon {
@@ -212,6 +228,15 @@
   font-weight: 600;
   color: rgba(255, 255, 255, 0.8);
   opacity: 0;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.amenity:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  color: #fff;
 }
 
 .revealed .amenity {

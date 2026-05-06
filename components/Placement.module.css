@@ -128,9 +128,13 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
   opacity: 0;
   transition: all 0.3s ease;
 }
+
 
 .revealed .point {
   animation: revealPoint 0.6s cubic-bezier(0.2, 1, 0.2, 1) forwards;
@@ -173,9 +177,19 @@
 }
 
 @media (max-width: 900px) {
-  .container { gap: 100px; padding: 0 24px; }
-  .row { flex-direction: column !important; gap: 32px; text-align: center; }
+  .container { gap: 60px; padding: 0 24px; }
+  .row { flex-direction: column !important; gap: 24px; text-align: center; }
   .contentInner { max-width: 100%; margin: 0 auto; }
   .points { justify-items: center; }
+  .point { justify-content: center; }
   .imageFrame { aspect-ratio: 16/9; }
+  .cta { justify-content: center; }
 }
+
+@media (max-width: 600px) {
+  .container { padding: 0 16px; gap: 48px; }
+  .title { font-size: 1.6rem; }
+  .description { font-size: 0.9rem; }
+  .section { padding: 0 0 60px; }
+}
+

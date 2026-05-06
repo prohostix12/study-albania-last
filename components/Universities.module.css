@@ -247,7 +247,11 @@
 /* Responsive */
 @media (max-width: 900px) {
   .inner { padding: 0 20px; }
-  .grid { grid-template-columns: 1fr; }
-  .toolbar { flex-direction: column; align-items: stretch; padding: 20px; }
-  .searchBox { max-width: 100%; }
+  .grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 480px) {
+  .inner { padding: 0 14px; }
+  .section { padding: 0 0 80px; }
+  .uniName { font-size: 1.1rem; }
 }

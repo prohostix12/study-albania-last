@@ -3,7 +3,19 @@
   padding: 0 0 100px;
   color: #fff;
   overflow: hidden;
+  position: relative;
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes revealPoint {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 
 .container {
   max-width: 1300px;
@@ -50,8 +62,10 @@
 
 .image {
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+  animation: float 6s ease-in-out infinite;
 }
+
 
 .row:hover .image {
   transform: scale(1.05);
@@ -114,10 +128,19 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
+
+.revealed .point {
+  animation: revealPoint 0.6s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+.revealed .point:nth-child(1) { animation-delay: 0.4s; }
+.revealed .point:nth-child(2) { animation-delay: 0.5s; }
+.revealed .point:nth-child(3) { animation-delay: 0.6s; }
+.revealed .point:nth-child(4) { animation-delay: 0.7s; }
+
 
 .dot {
   width: 6px;

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './PageHeader.module.css';
 import Link from 'next/link';
 
-export default function PageHeader({ title, subtitle, breadcrumb }) {
+export default function PageHeader({ title, subtitle, videoSrc = '/videos/albania-hero.mp4.mp4' }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -11,12 +11,12 @@ export default function PageHeader({ title, subtitle, breadcrumb }) {
   }, []);
 
   return (
-    <section className={styles.header}>
+    <header className={styles.header}>
       {/* Video Background */}
       <div className={styles.videoWrapper}>
         <video 
           className={styles.video}
-          src="/videos/albania-hero.mp4.mp4" 
+          src={videoSrc} 
           autoPlay 
           muted 
           loop 

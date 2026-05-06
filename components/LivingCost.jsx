@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './LivingCost.module.css';
 
 const costs = [
@@ -7,8 +8,6 @@ const costs = [
   { label: 'Food & Groceries', range: '₹7,000 – ₹10,000', icon: '🍽️' },
   { label: 'Transport', range: '₹1,500 – ₹2,500', icon: '🚌' },
   { label: 'Phone & Internet', range: '₹800 – ₹1,200', icon: '📱' },
-  { label: 'Entertainment', range: '₹2,000 – ₹4,000', icon: '🎭' },
-  { label: 'Health & Personal', range: '₹1,500 – ₹3,000', icon: '💊' },
 ];
 
 const partTimeInfo = [
@@ -17,119 +16,136 @@ const partTimeInfo = [
   { icon: '📋', title: 'Legal & Supported', desc: 'Our team helps you find legitimate part-time work with proper documentation.' },
 ];
 
+const livingSections = [
+  {
+    id: 'costs',
+    tag: 'Living Economy 01',
+    title: 'Monthly Cost Breakdown',
+    desc: 'Enjoy a high quality of life at a fraction of the cost. Albania is one of the most affordable study destinations in Europe, allowing students to maintain a comfortable lifestyle on a modest budget.',
+    image: '/images/cit_campus.png',
+    color: '#4A7AFA',
+    layout: 'left',
+    type: 'costs'
+  },
+  {
+    id: 'part-time',
+    tag: 'Living Economy 02',
+    title: 'Part-Time Work Opportunities',
+    desc: 'International students can work part-time in Albania legally, helping offset living costs while gaining valuable work experience in a growing economy.',
+    image: '/images/mua_campus.png',
+    color: '#7B4FFF',
+    layout: 'right',
+    type: 'part-time'
+  },
+  {
+    id: 'accommodation',
+    tag: 'Living Economy 03',
+    title: 'Premium Student Housing',
+    desc: 'University dorms, shared apartments, and homestays are available at highly competitive prices. All locations are near campuses with modern facilities and full security.',
+    image: '/images/epoka_campus.png',
+    color: '#E8A020',
+    layout: 'left',
+    type: 'accommodation'
+  }
+];
+
 export default function LivingCost() {
+  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.fade-up').forEach((el, i) => {
-            setTimeout(() => el.classList.add('visible'), i * 100);
-          });
+      entries => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
         }
-      }),
-      { threshold: 0.08 }
+      },
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="section-alt" id="living-cost" ref={sectionRef}>
-      <div className="container">
-
-        <div className={styles.layout}>
-          {/* Cost Breakdown */}
-          <div className={`${styles.costCard} fade-up`}>
-            <div className={styles.costCardHeader}>
-              <h3 className={styles.costCardTitle}>Monthly Cost Breakdown</h3>
-              <div className={styles.totalBadge}>Total: ₹25K – ₹40K/mo</div>
-            </div>
-            <div className={styles.costGrid}>
-              {costs.map((c, i) => (
-                <div key={i} className={styles.costItem}>
-                  <div className={styles.costIcon}>{c.icon}</div>
-                  <div className={styles.costInfo}>
-                    <span className={styles.costLabel}>{c.label}</span>
-                    <span className={styles.costRange}>{c.range}</span>
-                  </div>
-                  <div className={styles.costBar}>
-                    <div className={styles.costBarFill} style={{ width: `${40 + i * 10}%` }} />
-                  </div>
-                </div>
-              ))}
+    <section className={styles.section} id="living-cost" ref={sectionRef}>
+      <div className={styles.container}>
+        {livingSections.map((s, i) => (
+          <div 
+            key={s.id} 
+            className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''} ${isVisible ? styles.revealed : ''}`}
+            style={{ transitionDelay: `${i * 0.2}s` }}
+          >
+            {/* Image Side */}
+            <div className={styles.imageSide}>
+              <div className={styles.imageFrame}>
+                <Image 
+                  src={s.image} 
+                  alt={s.title} 
+                  fill 
+                  className={styles.image}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className={styles.imageOverlay} style={{ background: `linear-gradient(135deg, ${s.color}22, transparent)` }} />
+              </div>
             </div>
 
-            <div className={styles.comparison}>
-              <div className={styles.compareItem}>
-                <span className={styles.compareFlag}>🇦🇱</span>
-                <div>
-                  <strong>Albania</strong>
-                  <span>₹25,000 – ₹40,000/mo</span>
+            {/* Content Side */}
+            <div className={styles.contentSide}>
+              <div className={styles.contentInner}>
+                <div className={styles.tag} style={{ color: s.color, background: `${s.color}11` }}>
+                  {s.tag}
                 </div>
-                <div className={styles.compareBar}>
-                  <div className={styles.compareBarFill} style={{ width: '30%', background: '#25D366' }} />
-                </div>
-              </div>
-              <div className={styles.compareItem}>
-                <span className={styles.compareFlag}>🇬🇧</span>
-                <div>
-                  <strong>UK</strong>
-                  <span>₹1,20,000 – ₹2,00,000/mo</span>
-                </div>
-                <div className={styles.compareBar}>
-                  <div className={styles.compareBarFill} style={{ width: '95%', background: '#EF4444' }} />
-                </div>
-              </div>
-              <div className={styles.compareItem}>
-                <span className={styles.compareFlag}>🇩🇪</span>
-                <div>
-                  <strong>Germany</strong>
-                  <span>₹80,000 – ₹1,30,000/mo</span>
-                </div>
-                <div className={styles.compareBar}>
-                  <div className={styles.compareBarFill} style={{ width: '70%', background: '#F59E0B' }} />
-                </div>
+                <h2 className={styles.title}>{s.title}</h2>
+                <p className={styles.description}>{s.desc}</p>
+                
+                {s.type === 'costs' && (
+                  <div className={styles.costGrid}>
+                    {costs.map((c, idx) => (
+                      <div key={idx} className={styles.costItem}>
+                        <div className={styles.costMain}>
+                          <span className={styles.costLabel}>{c.label}</span>
+                          <span className={styles.costValue}>{c.range}</span>
+                        </div>
+                        <div className={styles.costBar}>
+                          <div className={styles.costBarFill} style={{ width: `${40 + idx * 15}%`, background: s.color }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {s.type === 'part-time' && (
+                  <div className={styles.featureGrid}>
+                    {partTimeInfo.map((item, idx) => (
+                      <div key={idx} className={styles.featureItem}>
+                        <div className={styles.featureIcon} style={{ background: `${s.color}18`, color: s.color }}>{item.icon}</div>
+                        <div>
+                          <h4 className={styles.featureTitle}>{item.title}</h4>
+                          <p className={styles.featureDesc}>{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {s.type === 'accommodation' && (
+                  <div className={styles.amenities}>
+                    {['🛏️ Furnished Rooms', '🔒 24/7 Security', '📶 High-speed Wi-Fi', '🍳 Kitchen Access'].map((item, idx) => (
+                      <span key={idx} className={styles.amenity}>{item}</span>
+                    ))}
+                  </div>
+                )}
+
+                <a href="#apply" className={styles.cta} style={{ borderBottomColor: s.color }}>
+                  Explore Life in Albania
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
-
-          {/* Part-Time Info */}
-          <div className={styles.rightCol}>
-            <div className={`${styles.partTimeCard} fade-up`}>
-              <h3 className={styles.partTimeTitle}>💼 Part-Time Work</h3>
-              <p className={styles.partTimeDesc}>
-                International students can work part-time in Albania legally, helping offset living costs while gaining valuable work experience.
-              </p>
-              <div className={styles.partTimeItems}>
-                {partTimeInfo.map((item, i) => (
-                  <div key={i} className={styles.partTimeItem}>
-                    <div className={styles.partTimeIcon}>{item.icon}</div>
-                    <div>
-                      <strong className={styles.partTimeItemTitle}>{item.title}</strong>
-                      <p className={styles.partTimeItemDesc}>{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className={`${styles.accommodationCard} fade-up`}>
-              <div className={styles.accomEmoji}>🏘️</div>
-              <h3 className={styles.accomTitle}>Student Accommodation</h3>
-              <p className={styles.accomDesc}>
-                University dorms, shared apartments, and homestays available. All located near campuses with modern facilities.
-              </p>
-              <div className={styles.accomFeatures}>
-                <span>🛏️ Furnished rooms</span>
-                <span>🔒 24/7 security</span>
-                <span>📶 High-speed Wi-Fi</span>
-                <span>🍳 Kitchen access</span>
-              </div>
-              <a href="#apply" className={`btn btn-primary ${styles.accomBtn}`}>Find Accommodation →</a>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

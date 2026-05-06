@@ -1,256 +1,233 @@
-.header {
-  text-align: center;
-  max-width: 660px;
-  margin: 0 auto 52px;
-}
-.header .section-subtitle { margin: 0 auto; }
-
-.layout {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 24px;
-  align-items: start;
+.section {
+  background: #000;
+  padding: 0 0 100px;
+  color: #fff;
+  overflow: hidden;
 }
 
-/* Cost Card */
-.costCard {
-  background: #1A1A1A;
-  border-radius: 24px;
-  padding: 36px 30px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
 }
 
-.costCardHeader {
+.row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
-.costCardTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #fff;
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.totalBadge {
-  background: linear-gradient(135deg, #2D6BE4, #7B4FFF);
-  color: white;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 6px 14px;
+.reverse {
+  flex-direction: row-reverse;
+}
+
+/* ── Image Side ── */
+.imageSide {
+  flex: 1;
+  position: relative;
+}
+
+.imageFrame {
+  position: relative;
+  aspect-ratio: 16/9;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.row:hover .image {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── Content Side ── */
+.contentSide {
+  flex: 1;
+}
+
+.contentInner {
+  max-width: 520px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 16px;
   border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
 }
 
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* ── Cost Grid ── */
 .costGrid {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .costItem {
-  display: grid;
-  grid-template-columns: 36px 1fr 120px;
-  align-items: center;
-  gap: 12px;
-}
-
-.costIcon { font-size: 1.3rem; }
-
-.costInfo {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
+}
+
+.costMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .costLabel {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #fff;
 }
 
-.costRange {
-  font-size: 0.76rem;
-  color: rgba(255, 255, 255, 0.5);
+.costValue {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 700;
 }
 
 .costBar {
-  height: 6px;
+  height: 4px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .costBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #2D6BE4, #7B4FFF);
-  border-radius: 3px;
-  transition: width 1s ease;
+  border-radius: 2px;
+  transition: width 1.5s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
-/* Comparison */
-.comparison {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.compareItem {
-  display: grid;
-  grid-template-columns: 28px 1fr 120px;
-  align-items: center;
-  gap: 12px;
-}
-
-.compareFlag { font-size: 1.4rem; }
-
-.compareItem div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.compareItem strong {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.compareItem span {
-  font-size: 0.74rem;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.compareBar {
-  height: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.compareBarFill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1.2s ease;
-}
-
-/* Right column */
-.rightCol {
+/* ── Feature Grid ── */
+.featureGrid {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 32px;
 }
 
-.partTimeCard {
-  background: linear-gradient(135deg, #151515 0%, #1A1A1A 100%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 32px;
-  color: white;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
-}
-
-.partTimeTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-
-.partTimeDesc {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.78);
-  line-height: 1.65;
-  margin-bottom: 20px;
-}
-
-.partTimeItems {
+.featureItem {
   display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.partTimeItem {
-  display: flex;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-start;
 }
 
-.partTimeIcon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
-
-.partTimeItemTitle {
-  display: block;
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin-bottom: 3px;
+.featureIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
-.partTimeItemDesc {
-  font-size: 0.79rem;
-  color: rgba(255,255,255,0.70);
+.featureTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.featureDesc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.5;
 }
 
-/* Accommodation card */
-.accommodationCard {
-  background: #1A1A1A;
-  border-radius: 24px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.accomEmoji { font-size: 2rem; margin-bottom: 10px; }
-
-.accomTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 8px;
-}
-
-.accomDesc {
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.accomFeatures {
+/* ── Amenities ── */
+.amenities {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 32px;
 }
 
-.accomFeatures span {
+.amenity {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 5px 11px;
-  font-size: 0.76rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.accomBtn {
-  width: 100%;
-  justify-content: center;
-  padding: 11px !important;
-  font-size: 0.85rem !important;
-  border-radius: 10px !important;
+/* ── CTA ── */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding-bottom: 6px;
+  border-bottom: 2px solid;
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 960px) {
-  .layout { grid-template-columns: 1fr; }
-  .costItem { grid-template-columns: 36px 1fr 90px; }
-  .compareItem { grid-template-columns: 28px 1fr 90px; }
+.cta:hover {
+  gap: 18px;
+  opacity: 0.8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .row { gap: 40px; }
+}
+
+@media (max-width: 900px) {
+  .container { gap: 80px; padding: 0 24px; }
+  .row { flex-direction: column !important; gap: 32px; text-align: center; }
+  .contentInner { max-width: 100%; margin: 0 auto; }
+  .featureItem { text-align: left; }
+  .costItem { text-align: left; }
+  .imageFrame { aspect-ratio: 16/9; }
 }

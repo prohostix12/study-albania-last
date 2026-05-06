@@ -50,6 +50,7 @@ const livingSections = [
 ];
 
 export default function LivingCost() {
+  const [visibleRows, setVisibleRows] = useState(new Set());
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -57,7 +58,15 @@ export default function LivingCost() {
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add(styles.revealed);
+            const index = entry.target.getAttribute('data-index');
+            if (index !== null) {
+              setVisibleRows(prev => {
+                const next = new Set(prev);
+                next.add(index);
+                return next;
+              });
+              observer.unobserve(entry.target);
+            }
           }
         });
       },
@@ -78,7 +87,8 @@ export default function LivingCost() {
         {livingSections.map((s, i) => (
           <div 
             key={s.id} 
-            className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''}`}
+            data-index={i}
+            className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''} ${visibleRows.has(String(i)) ? styles.revealed : ''}`}
           >
             {/* Image Side */}
             <div className={styles.imageSide}>

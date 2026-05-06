@@ -47,27 +47,12 @@ export default function Universities() {
     return () => observer.disconnect();
   }, [filteredUniversities]);
 
-  const cities = ['All', ...new Set(allUniversities.map(u => u.location))];
+
 
   return (
     <section className={styles.section} id="universities" ref={sectionRef}>
       <div className={styles.inner}>
         
-        {/* ── Filter Bar ── */}
-        <div className={styles.toolbar}>
-          <div className={styles.filters}>
-            {cities.map(city => (
-              <button 
-                key={city}
-                className={`${styles.filterBtn} ${activeFilter === city ? styles.filterActive : ''}`}
-                onClick={() => setActiveFilter(city)}
-              >
-                {city}
-              </button>
-            ))}
-          </div>
-        </div>
-
 
         {/* ── Grid ── */}
         <div className={styles.grid}>

@@ -16,7 +16,21 @@ export default function HeroSection() {
 
   const courses = ['IT & Computer Science', 'Engineering', 'Business & Economics', 'Architecture', 'Law & Social Sciences', 'Technology & Innovation'];
 
+  // Helper function to animate each letter
+  const renderAnimatedText = (text, startIndex) => {
+    return text.split('').map((char, index) => (
+      <span 
+        key={index} 
+        className={styles.animChar} 
+        style={{ animationDelay: `${0.1 + (startIndex + index) * 0.03}s` }}
+      >
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
+  };
+
   return (
+
     <section className={styles.hero} id="home">
       {/* Background */}
       <div className={styles.heroBg}>
@@ -41,9 +55,16 @@ export default function HeroSection() {
 
 
           <h1 className={styles.heroTitle}>
-            Study in <span className={styles.heroAccent}>Albania</span><br />
-            Your European<br />
-            Dream Starts Here
+            <div className={styles.titleLine}>
+              {renderAnimatedText("Study in ", 0)}
+              <span className={styles.heroAccent}>{renderAnimatedText("Albania", 9)}</span>
+            </div>
+            <div className={styles.titleLine}>
+              {renderAnimatedText("Your European", 16)}
+            </div>
+            <div className={styles.titleLine}>
+              {renderAnimatedText("Dream Starts Here", 29)}
+            </div>
           </h1>
 
           <p className={styles.heroSub}>

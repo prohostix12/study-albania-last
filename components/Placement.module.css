@@ -11,7 +11,8 @@
   padding: 0 40px;
   display: flex;
   flex-direction: column;
-  gap: 160px;
+  gap: 100px;
+
 }
 
 .row {
@@ -40,7 +41,8 @@
 
 .imageFrame {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/9;
+
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
@@ -95,13 +97,14 @@
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.7;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
+
 
 .points {
   list-style: none;
   padding: 0;
-  margin: 0 0 40px;
+  margin: 0 0 24px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;

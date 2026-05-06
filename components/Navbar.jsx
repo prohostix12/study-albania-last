@@ -25,7 +25,6 @@ export default function Navbar() {
       <div className={`container ${styles.navInner}`}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoFlag}>🇦🇱</span>
           <span className={styles.logoText}>
             <span className={styles.logoBold}>Study</span>
             <span className={styles.logoLight}> Albania</span>

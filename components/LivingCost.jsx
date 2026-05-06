@@ -50,19 +50,25 @@ const livingSections = [
 ];
 
 export default function LivingCost() {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-        }
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.revealed);
+          }
+        });
       },
-      { threshold: 0.1 }
+      { threshold: 0.2 }
     );
-    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    if (sectionRef.current) {
+      const rows = sectionRef.current.querySelectorAll(`.${styles.row}`);
+      rows.forEach(row => observer.observe(row));
+    }
+
     return () => observer.disconnect();
   }, []);
 
@@ -72,8 +78,7 @@ export default function LivingCost() {
         {livingSections.map((s, i) => (
           <div 
             key={s.id} 
-            className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''} ${isVisible ? styles.revealed : ''}`}
-            style={{ transitionDelay: `${i * 0.2}s` }}
+            className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''}`}
           >
             {/* Image Side */}
             <div className={styles.imageSide}>

@@ -69,7 +69,8 @@
 /* Image Header */
 .imageHeader {
   position: relative;
-  height: 280px;
+  height: 220px;
+
   overflow: hidden;
 }
 
@@ -126,7 +127,8 @@
 
 /* Content */
 .content {
-  padding: 25px 25px 30px;
+  padding: 20px 20px 25px;
+
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -157,16 +159,18 @@
   font-size: 0.88rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
+
 
 .statsGrid {
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
+
 
 .statItem {
   display: flex;
@@ -197,7 +201,8 @@
   flex: 1.2;
   background: linear-gradient(135deg, #4A7AFA 0%, #7E9DF8 100%);
   color: #fff;
-  padding: 14px;
+  padding: 11px;
+
   border-radius: 15px;
   font-size: 0.85rem;
   font-weight: 700;
@@ -217,7 +222,8 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #fff;
-  padding: 14px;
+  padding: 11px;
+
   border-radius: 15px;
   font-size: 0.85rem;
   font-weight: 600;

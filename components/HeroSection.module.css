@@ -82,7 +82,7 @@
 /* Left */
 .heroLeft {
   color: white;
-  margin-left: -80px;
+  text-align: left;
   flex: 1;
 }
 

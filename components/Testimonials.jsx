@@ -49,16 +49,22 @@ export default function Testimonials() {
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Animate left column
+          const leftCol = entry.target.querySelector(`.${styles.leftCol}`);
+          if (leftCol) leftCol.classList.add(styles.visible);
+
+          // Animate cards with stagger
           entry.target.querySelectorAll(`.${styles.cardWrap}`).forEach((el, i) => {
-            setTimeout(() => el.classList.add(styles.visible), i * 110);
+            setTimeout(() => el.classList.add(styles.visible), 200 + (i * 100));
           });
         }
       }),
-      { threshold: 0.05 }
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
 
   return (
     <section className={styles.section} id="testimonials" ref={sectionRef}>
@@ -72,7 +78,7 @@ export default function Testimonials() {
 
           <div className={styles.content}>
             {/* Left Column */}
-            <div className={styles.leftCol}>
+            <div className={`${styles.leftCol} ${styles.reveal}`}>
               <div className={styles.tags}>
                 <span className={`${styles.tag} ${styles.active}`}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -100,10 +106,12 @@ export default function Testimonials() {
               </Link>
             </div>
 
+
             {/* Right Column Grid */}
             <div className={styles.rightCol}>
               {students.map((s, i) => (
-                <div key={i} className={styles.cardWrap} style={{ opacity: 1, transform: 'none' }}>
+                <div key={i} className={`${styles.cardWrap} ${styles.reveal}`}>
+
                   <div className={styles.cardInner}>
                     
                     {/* Front */}

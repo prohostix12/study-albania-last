@@ -4,7 +4,7 @@ import WhyAlbania from '../components/WhyAlbania';
 import MovingBanner from '../components/MovingBanner';
 import CinematicSection from '../components/CinematicSection';
 import UniversitiesHome from '../components/UniversitiesHome';
-import StatsBar from '../components/StatsBar';
+
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
 import CTABanner from '../components/CTABanner';
@@ -19,7 +19,7 @@ export default function Home() {
       <MovingBanner />
       <CinematicSection />
       <UniversitiesHome />
-      <StatsBar />
+
       <Testimonials />
       <FAQ />
       <CTABanner />

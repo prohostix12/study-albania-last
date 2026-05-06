@@ -134,15 +134,20 @@
 
 /* ── Expanded Body ── */
 .rowBody {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  max-height: 0;
   overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .rowBodyOpen {
-  grid-template-rows: 1fr;
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in-out, opacity 0.3s ease;
+  opacity: 1;
+  pointer-events: auto;
 }
+
 
 .bodyInner {
   min-height: 0;

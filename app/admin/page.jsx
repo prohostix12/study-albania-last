@@ -31,6 +31,7 @@ export default function AdminPage() {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUniversities(getUniversities());
   }, []);
 

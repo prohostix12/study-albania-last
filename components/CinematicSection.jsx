@@ -50,7 +50,7 @@ export default function CinematicSection() {
           </h2>
           <p className={styles.sub}>
             Join thousands of international students building<br />
-            global careers through Albania's world-class universities.
+            global careers through Albania&apos;s world-class universities.
           </p>
         </div>
 

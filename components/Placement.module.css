@@ -32,22 +32,21 @@
   align-items: center;
   gap: 80px;
   opacity: 0;
-  transform: translateX(-80px);
   transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
+/* Specific animations per user request */
+.row:nth-child(1) { transform: translateX(-80px); } /* Left to Right */
+.row:nth-child(2) { transform: translateX(80px); }  /* Right to Left */
+.row:nth-child(3) { transform: translateX(80px); }  /* Right to Left */
+
 .revealed {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) !important;
 }
 
 .reverse {
   flex-direction: row-reverse;
-  transform: translateX(80px);
-}
-
-.reverse.revealed {
-  transform: translateX(0);
 }
 
 /* ── Image Side ── */

@@ -1,43 +1,49 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './Placement.module.css';
 
 const placements = [
   {
-    icon: '💼',
+    id: 'internships',
     title: 'Internships During Study',
-    desc: 'All universities have tie-ups with local and international companies offering paid internships starting from your 2nd year.',
-    points: ['Paid internship programs', 'Industry mentoring', 'Real-world experience', 'CV & portfolio building'],
-    color: '#2D6BE4',
+    desc: 'Our partnered universities maintain strong tie-ups with leading local and international companies, offering professional paid internships that start as early as your second year of study.',
+    points: ['Paid internship programs in major cities', 'Direct industry mentoring from experts', 'Practical real-world experience', 'Build a professional CV & portfolio'],
+    image: '/images/placement-internship.png',
+    color: '#4A7AFA',
+    layout: 'left'
   },
   {
-    icon: '🌍',
-    title: 'Job Opportunities',
-    desc: 'Albania\'s growing economy and strong ties to EU markets give graduates access to jobs both locally and across Europe.',
-    points: ['IT, Business & Engineering jobs', 'EU company placements', 'Remote work opportunities', 'Career counselling support'],
+    id: 'jobs',
+    title: 'Global Job Opportunities',
+    desc: 'Albania\'s rapidly growing economy and strategic ties to EU markets provide graduates with exclusive access to high-demand roles both within the country and across the European Union.',
+    points: ['Access to IT, Engineering & Business roles', 'Direct placements in EU-based companies', 'Support for remote work opportunities', 'Personalized career counselling and prep'],
+    image: '/images/why-albania-bg.png',
     color: '#7B4FFF',
-    featured: true,
+    layout: 'right'
   },
   {
-    icon: '🎓',
+    id: 'pathway',
     title: 'EU Higher Studies Pathway',
-    desc: 'Your Albanian degree is ECTS-recognized across Europe, enabling seamless applications for Master\'s or PhD programs in EU.',
-    points: ['Apply to EU universities', 'Erasmus+ mobility programs', 'Research opportunities', 'PhD pathways in Europe'],
+    desc: 'Your Albanian degree is ECTS-recognized across Europe, serving as a powerful gateway for seamless applications to prestigious Master\'s or PhD programs throughout the continent.',
+    points: ['Direct admission to EU universities', 'Erasmus+ international mobility programs', 'Advanced research opportunities', 'Clear PhD pathways across European capitals'],
+    image: '/images/faq-students.png',
     color: '#E8A020',
+    layout: 'left'
   },
 ];
 
 export default function Placement() {
+  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.fade-up').forEach((el, i) => {
-            setTimeout(() => el.classList.add('visible'), i * 130);
-          });
+      entries => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
         }
-      }),
+      },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -45,32 +51,56 @@ export default function Placement() {
   }, []);
 
   return (
-    <section className="section" id="placement" ref={sectionRef}>
-      <div className="container">
-
-        <div className={styles.cards}>
-          {placements.map((p, i) => (
-            <div key={i} className={`${styles.card} ${p.featured ? styles.featured : ''} fade-up`} style={{ '--card-color': p.color }}>
-              {p.featured && <div className={styles.featuredBadge}>Most Popular</div>}
-              <div className={styles.cardIcon} style={{ background: `${p.color}18` }}>
-                <span>{p.icon}</span>
+    <section className={styles.section} id="placement" ref={sectionRef}>
+      <div className={styles.container}>
+        {placements.map((p, i) => (
+          <div 
+            key={p.id} 
+            className={`${styles.row} ${p.layout === 'right' ? styles.reverse : ''} ${isVisible ? styles.revealed : ''}`}
+            style={{ transitionDelay: `${i * 0.2}s` }}
+          >
+            {/* Image Side */}
+            <div className={styles.imageSide}>
+              <div className={styles.imageFrame}>
+                <Image 
+                  src={p.image} 
+                  alt={p.title} 
+                  fill 
+                  className={styles.image}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className={styles.imageOverlay} style={{ background: `linear-gradient(135deg, ${p.color}22, transparent)` }} />
               </div>
-              <h3 className={styles.cardTitle}>{p.title}</h3>
-              <p className={styles.cardDesc}>{p.desc}</p>
-              <ul className={styles.points}>
-                {p.points.map(pt => (
-                  <li key={pt} className={styles.point}>
-                    <span className={styles.pointCheck} style={{ color: p.color }}>✓</span>
-                    {pt}
-                  </li>
-                ))}
-              </ul>
-              <a href="#apply" className={styles.cardCta} style={{ background: `linear-gradient(135deg, ${p.color}, ${p.color}cc)` }}>
-                Learn More →
-              </a>
             </div>
-          ))}
-        </div>
+
+            {/* Content Side */}
+            <div className={styles.contentSide}>
+              <div className={styles.contentInner}>
+                <div className={styles.tag} style={{ color: p.color, background: `${p.color}11` }}>
+                  Placement Pillar 0{i + 1}
+                </div>
+                <h2 className={styles.title}>{p.title}</h2>
+                <p className={styles.description}>{p.desc}</p>
+                
+                <ul className={styles.points}>
+                  {p.points.map((pt, idx) => (
+                    <li key={idx} className={styles.point}>
+                      <span className={styles.dot} style={{ background: p.color }} />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+
+                <a href="#apply" className={styles.cta} style={{ borderBottomColor: p.color }}>
+                  Explore Opportunities
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

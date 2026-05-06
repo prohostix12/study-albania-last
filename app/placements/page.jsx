@@ -12,7 +12,7 @@ export default function PlacementsPage() {
       <PageHeader 
         title="Career & Placements"
         subtitle="Global opportunities await. Our students are placed in top international companies across Europe and the globe."
-        breadcrumb="Placements"
+        videoSrc="/videos/placements-hero.mp4.mp4"
       />
       <Placement />
       <Testimonials />

@@ -11,7 +11,7 @@ export default function LivingCostsPage() {
       <PageHeader 
         title="Living Costs in Albania"
         subtitle="Enjoy a high quality of life at a fraction of the cost. Albania is one of the most affordable study destinations in Europe."
-        breadcrumb="Living Cost"
+        imageSrc="/images/cta-bg.jpg"
       />
       <LivingCost />
       <CTABanner />

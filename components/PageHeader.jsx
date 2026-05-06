@@ -1,9 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import styles from './PageHeader.module.css';
-import Link from 'next/link';
 
-export default function PageHeader({ title, subtitle, videoSrc = '/videos/albania-hero.mp4.mp4' }) {
+export default function PageHeader({ 
+  title, 
+  subtitle, 
+  videoSrc = '/videos/albania-hero.mp4.mp4',
+  imageSrc = null
+}) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -12,16 +17,27 @@ export default function PageHeader({ title, subtitle, videoSrc = '/videos/albani
 
   return (
     <header className={styles.header}>
-      {/* Video Background */}
+      {/* Background: Image or Video */}
       <div className={styles.videoWrapper}>
-        <video 
-          className={styles.video}
-          src={videoSrc} 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-        />
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt={title}
+            fill
+            className={styles.video}
+            style={{ objectFit: 'cover' }}
+            priority
+          />
+        ) : (
+          <video 
+            className={styles.video}
+            src={videoSrc} 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+          />
+        )}
         <div className={styles.overlay} />
       </div>
       

@@ -26,6 +26,7 @@ export default function CTABanner() {
   return (
     <section className={styles.banner} id="cta" ref={sectionRef}>
       <div className={styles.container}>
+
         <div className={`${styles.card} ${isVisible ? styles.cardVisible : ''}`}>
           
           <div className={styles.header}>

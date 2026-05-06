@@ -31,6 +31,6 @@ export default function PageHeader({ title, subtitle, videoSrc = '/videos/albani
           <p className={styles.subtitle}>{subtitle}</p>
         </div>
       </div>
-    </section>
+    </header>
   );
 }

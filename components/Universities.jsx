@@ -53,22 +53,8 @@ export default function Universities() {
     <section className={styles.section} id="universities" ref={sectionRef}>
       <div className={styles.inner}>
         
-        {/* ── Search & Filter Bar ── */}
+        {/* ── Filter Bar ── */}
         <div className={styles.toolbar}>
-          <div className={styles.searchBox}>
-            <svg className={styles.searchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input 
-              type="text" 
-              placeholder="Search universities..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.searchInput}
-            />
-          </div>
-          
           <div className={styles.filters}>
             {cities.map(city => (
               <button 
@@ -81,6 +67,7 @@ export default function Universities() {
             ))}
           </div>
         </div>
+
 
         {/* ── Grid ── */}
         <div className={styles.grid}>

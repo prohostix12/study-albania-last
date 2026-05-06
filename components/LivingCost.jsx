@@ -51,7 +51,7 @@ const livingSections = [
 
 export default function LivingCost() {
   const [visibleRows, setVisibleRows] = useState(new Set());
-  const sectionRef = useRef(null);
+  const rowRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -73,21 +73,21 @@ export default function LivingCost() {
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      const rows = sectionRef.current.querySelectorAll(`.${styles.row}`);
-      rows.forEach(row => observer.observe(row));
-    }
+    rowRefs.current.forEach(row => {
+      if (row) observer.observe(row);
+    });
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className={styles.section} id="living-cost" ref={sectionRef}>
+    <section className={styles.section} id="living-cost">
       <div className={styles.container}>
         {livingSections.map((s, i) => (
           <div 
             key={s.id} 
             data-index={i}
+            ref={el => rowRefs.current[i] = el}
             className={`${styles.row} ${s.layout === 'right' ? styles.reverse : ''} ${visibleRows.has(String(i)) ? styles.revealed : ''}`}
           >
             {/* Image Side */}

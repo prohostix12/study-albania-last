@@ -35,7 +35,7 @@ const placements = [
 
 export default function Placement() {
   const [visibleRows, setVisibleRows] = useState(new Set());
-  const sectionRef = useRef(null);
+  const rowRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,21 +57,21 @@ export default function Placement() {
       { threshold: 0.2 }
     );
 
-    if (sectionRef.current) {
-      const rows = sectionRef.current.querySelectorAll(`.${styles.row}`);
-      rows.forEach(row => observer.observe(row));
-    }
+    rowRefs.current.forEach(row => {
+      if (row) observer.observe(row);
+    });
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className={styles.section} id="placement" ref={sectionRef}>
+    <section className={styles.section} id="placement">
       <div className={styles.container}>
         {placements.map((p, i) => (
           <div 
             key={p.id} 
             data-index={i}
+            ref={el => rowRefs.current[i] = el}
             className={`${styles.row} ${p.layout === 'right' ? styles.reverse : ''} ${visibleRows.has(String(i)) ? styles.revealed : ''}`}
           >
             {/* Image Side */}

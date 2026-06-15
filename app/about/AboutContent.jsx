@@ -45,33 +45,6 @@ const VALUES = [
   },
 ];
 
-const TEAM = [
-  {
-    name: 'Arjun Mehta',
-    role: 'Founder & CEO',
-    bio: '10+ years in international education consulting. Previously at British Council and IDP Education.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80&auto=format&fit=crop',
-  },
-  {
-    name: 'Sara Krasniqi',
-    role: 'Head of Admissions — Albania',
-    bio: 'Former admissions officer at Epoka University. Native Albanian with deep university network.',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80&auto=format&fit=crop',
-  },
-  {
-    name: 'Priya Nair',
-    role: 'Student Success Manager',
-    bio: 'Guides students through visa applications and on-ground settlement. Fluent in English, Hindi, and Albanian.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80&auto=format&fit=crop',
-  },
-  {
-    name: 'Erion Basha',
-    role: 'Partnerships Director',
-    bio: 'Manages relationships with Albanian universities and EU academic partners to secure the best placements.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop',
-  },
-];
-
 const STEPS = [
   { num: '01', title: 'Free Consultation', desc: 'Speak to a counsellor who listens to your goals, budget, and course preferences — no pressure, no fees.' },
   { num: '02', title: 'University Matching', desc: 'We shortlist the best-fit programs from our verified partner universities based on your profile.' },
@@ -87,7 +60,6 @@ export default function AboutContent() {
   const [statsRef, statsVisible] = useVisible(0.1);
   const [valuesRef, valuesVisible] = useVisible(0.1);
   const [stepsRef, stepsVisible] = useVisible(0.05);
-  const [teamRef, teamVisible] = useVisible(0.05);
   const [videoRef, videoVisible] = useVisible(0.1);
 
   return (
@@ -264,35 +236,6 @@ export default function AboutContent() {
                 <div className={styles.stepBody}>
                   <h4 className={styles.stepTitle}>{step.title}</h4>
                   <p className={styles.stepDesc}>{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TEAM ── */}
-      <section className={styles.team}>
-        <div className="container">
-          <div className={styles.teamHeader}>
-            <span className={styles.sectionTag}>Our Team</span>
-            <h2 className={styles.teamTitle}>The people behind your success</h2>
-            <p className={styles.teamSubtitle}>Experienced counsellors, admissions specialists, and student success managers — all dedicated to your journey.</p>
-          </div>
-          <div className={styles.teamGrid} ref={teamRef}>
-            {TEAM.map((member, i) => (
-              <div
-                key={member.name}
-                className={`${styles.teamCard} ${teamVisible ? styles.teamCardVisible : ''}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className={styles.teamImgWrap}>
-                  <img src={member.image} alt={member.name} className={styles.teamImg} />
-                </div>
-                <div className={styles.teamInfo}>
-                  <h3 className={styles.teamName}>{member.name}</h3>
-                  <p className={styles.teamRole}>{member.role}</p>
-                  <p className={styles.teamBio}>{member.bio}</p>
                 </div>
               </div>
             ))}

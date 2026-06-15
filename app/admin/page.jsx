@@ -1101,6 +1101,7 @@ const NAV_ITEMS = [
   { key: 'students',     icon: '🌟', label: 'Students' },
   { key: 'faqs',         icon: '❓', label: 'FAQs' },
   { key: 'contact',      icon: '📞', label: 'Contact' },
+  { key: 'settings',     icon: '⚙️', label: 'Settings' },
 ];
 
 const OLD_LS_KEYS = ['sia_universities', 'sia_faqs', 'sia_placements', 'sia_enquiries', 'sia_students', 'sia_contact'];
@@ -1176,20 +1177,6 @@ export default function AdminPage() {
         <a href="/" className={styles.sidebarViewSite} target="_blank" rel="noopener noreferrer">
           ↗ View Site
         </a>
-        <button
-          className={styles.logoutBtn}
-          style={{ background: seeding ? '#374151' : '#1e3a5f', marginBottom: 4 }}
-          onClick={handleSeedDB}
-          disabled={seeding}
-        >
-          {seeding ? '⏳ Seeding…' : '🌱 Seed DB'}
-        </button>
-        {seedMsg && (
-          <p style={{ fontSize: '0.72rem', textAlign: 'center', padding: '4px 8px',
-            color: seedMsg.startsWith('✓') ? '#4ade80' : '#f87171' }}>
-            {seedMsg}
-          </p>
-        )}
         <button className={styles.logoutBtn} onClick={handleLogout}>
           ⏻ Logout
         </button>
@@ -1203,6 +1190,44 @@ export default function AdminPage() {
         {tab === 'students'     && <StudentsAdmin />}
         {tab === 'faqs'         && <FAQsAdmin />}
         {tab === 'contact'      && <ContactAdmin />}
+        {tab === 'settings'     && (
+          <div className={styles.content}>
+            <div className={styles.contentTopBar}>
+              <div>
+                <h2 className={styles.contentTitle}>Settings</h2>
+                <p className={styles.contentSubtitle}>Database management and configuration</p>
+              </div>
+            </div>
+            <div className={styles.placementFormWrap}>
+              <div className={styles.formCol} style={{ maxWidth: 560 }}>
+                <div className={styles.formSection}>
+                  <h3 className={styles.formSectionTitle}>🌱 Seed Database with Defaults</h3>
+                  <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.5)', marginBottom: 16, lineHeight: 1.6 }}>
+                    Populates MongoDB with all default data — universities, FAQs, placements, student stories, and contact info.
+                    Run this once when setting up the site, or to reset everything back to defaults.
+                  </p>
+                  {seedMsg && (
+                    <p style={{ fontSize: '0.88rem', marginBottom: 12, fontWeight: 600,
+                      color: seedMsg.startsWith('✓') ? '#4ade80' : '#f87171' }}>
+                      {seedMsg}
+                    </p>
+                  )}
+                  <button
+                    className={styles.saveBtn}
+                    style={{ opacity: seeding ? 0.6 : 1, cursor: seeding ? 'not-allowed' : 'pointer' }}
+                    onClick={handleSeedDB}
+                    disabled={seeding}
+                  >
+                    {seeding ? '⏳ Seeding database…' : '🌱 Seed Database with Defaults'}
+                  </button>
+                  <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)', marginTop: 10 }}>
+                    ⚠️ This will overwrite all existing data in MongoDB.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

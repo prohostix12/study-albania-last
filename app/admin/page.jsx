@@ -39,15 +39,21 @@ function Universities() {
   const [facultiesJson, setFacultiesJson] = useState('');
   const [facultiesJsonError, setFacultiesJsonError] = useState('');
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   useEffect(() => { getUniversities().then(setUniversities); }, []);
 
   async function persist(data) {
     setUniversities(data);
-    await saveUniversities(data);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await saveUniversities(data);
+      setSaved(true);
+      setSaveError('');
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      setSaveError('Save failed — check MongoDB connection');
+    }
   }
 
   function resetInputs() {
@@ -377,6 +383,7 @@ function Universities() {
         </div>
         <div className={styles.topActions}>
           {saved && <span className={styles.savedBadge}>✓ Saved</span>}
+          {saveError && <span style={{ color: '#ef4444', fontSize: '0.82rem' }}>{saveError}</span>}
           <button className={styles.resetBtn} onClick={resetDefaults}>Reset Defaults</button>
           <button className={styles.addBtn} onClick={openNew}>+ Add University</button>
         </div>
@@ -537,9 +544,13 @@ function PlacementsAdmin() {
 
   async function persist(data) {
     setPlacements(data);
-    await savePlacements(data);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await savePlacements(data);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      alert('Save failed — check MongoDB connection');
+    }
   }
 
   function openEdit(p) { setEditing({ ...p, points: [...p.points] }); setPointInput(''); }
@@ -669,9 +680,13 @@ function FAQsAdmin() {
 
   async function persist(data) {
     setFaqs(data);
-    await saveFaqs(data);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await saveFaqs(data);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      alert('Save failed — check MongoDB connection');
+    }
   }
 
   function openNew() { setEditing({ ...EMPTY_FAQ, id: `faq-${Date.now()}` }); }
@@ -791,9 +806,13 @@ function StudentsAdmin() {
 
   async function persist(data) {
     setStudents(data);
-    await saveStudents(data);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await saveStudents(data);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      alert('Save failed — check MongoDB connection');
+    }
   }
 
   function openNew() { setEditing({ ...EMPTY_STUDENT, id: `s-${Date.now()}` }); }
@@ -946,9 +965,13 @@ function ContactAdmin() {
   function field(key, value) { setContact(c => ({ ...c, [key]: value })); }
 
   async function persist() {
-    await saveContact(contact);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await saveContact(contact);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      alert('Save failed — check MongoDB connection');
+    }
   }
 
   return (

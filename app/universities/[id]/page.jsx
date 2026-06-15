@@ -16,13 +16,14 @@ export default function UniversityDetailPage() {
   const [activeTab, setActiveTab] = useState('courses');
 
   useEffect(() => {
-    const universities = getUniversities();
-    const found = universities.find(u => String(u.id) === String(id));
-    if (!found) {
-      router.replace('/universities');
-    } else {
-      setUni(found);
-    }
+    getUniversities().then(universities => {
+      const found = universities.find(u => String(u.id) === String(id));
+      if (!found) {
+        router.replace('/universities');
+      } else {
+        setUni(found);
+      }
+    });
   }, [id, router]);
 
   if (!uni) {

@@ -7,7 +7,7 @@ export default function ImageUpload({ value, onChange, placeholder = 'https://..
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
 
-  async function handleFile(e) {
+  function handleFile(e) {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -23,23 +23,20 @@ export default function ImageUpload({ value, onChange, placeholder = 'https://..
 
     setError('');
     setUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (data.url) {
-        onChange(data.url);
-      } else {
-        setError(data.error || 'Upload failed.');
-      }
-    } catch {
-      setError('Upload failed. Please try again.');
-    } finally {
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      onChange(ev.target.result);
       setUploading(false);
-      // reset so same file can be re-selected
-      e.target.value = '';
-    }
+    };
+    reader.onerror = () => {
+      setError('Failed to read file. Please try again.');
+      setUploading(false);
+    };
+    reader.readAsDataURL(file);
+
+    // reset so same file can be re-selected
+    e.target.value = '';
   }
 
   return (

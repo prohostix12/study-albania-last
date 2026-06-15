@@ -37,9 +37,9 @@ export default function Footer() {
         <div className={styles.linksCol}>
           <h4 className={styles.linksTitle}>Quick Links</h4>
           <ul className={styles.linkList}>
-            <li><a href="#why-albania">Why Albania</a></li>
-            <li><a href="#universities">Universities</a></li>
-            <li><a href="#placement">Placements</a></li>
+            <li><a href="/#why-albania">Why Albania</a></li>
+            <li><a href="/universities">Universities</a></li>
+            <li><a href="/placements">Placements</a></li>
             <li><a href="/about">About Us</a></li>
           </ul>
         </div>
@@ -47,10 +47,10 @@ export default function Footer() {
         <div className={styles.linksCol}>
           <h4 className={styles.linksTitle}>Support</h4>
           <ul className={styles.linkList}>
-            <li><a href="#apply">Apply Now</a></li>
-            <li><a href="#">Visa Guidelines</a></li>
-            <li><a href="#">FAQs</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="/#apply">Apply Now</a></li>
+            <li><a href="/living-costs">Living Costs</a></li>
+            <li><a href="/#faq">FAQs</a></li>
+            <li><a href="/about">Contact Us</a></li>
           </ul>
         </div>
 

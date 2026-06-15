@@ -13,7 +13,7 @@ export default function FAQ() {
   }, []);
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="faq">
       <div className={styles.inner}>
 
         {/* ── Header ── */}

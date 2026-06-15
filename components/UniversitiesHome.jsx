@@ -52,6 +52,7 @@ export default function UniversitiesHome() {
             badge: u.badge || 'Accredited',
             color: u.color || '#1A3C8F',
             image: u.coverImage || FALLBACK_IMAGES[i],
+            fallback: FALLBACK_IMAGES[i],
           };
         }
       });
@@ -191,7 +192,13 @@ function Card({ uni, visible, delay, nameLg, nameSm }) {
       style={{ transitionDelay: `${delay}ms`, '--card-color': uni.color }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={uni.image} alt={uni.name} className={styles.cardImg} loading="lazy" />
+      <img
+        src={uni.image}
+        alt={uni.name}
+        className={styles.cardImg}
+        loading="eager"
+        onError={e => { if (e.target.src !== uni.fallback) e.target.src = uni.fallback; }}
+      />
       <div className={styles.overlay} />
       <div className={styles.cardContent}>
         <span className={styles.cardBadge}>✦ {uni.badge}</span>

@@ -1,51 +1,19 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Testimonials.module.css';
 import Link from 'next/link';
-
-const students = [
-  {
-    name: 'Rahul Sharma',
-    course: 'BSc Computer Science',
-    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: 'Moving to Albania was the best decision of my life. Affordable tuition, world-class professors, and I landed an internship in my second year!',
-  },
-  {
-    name: 'Amina Hassan',
-    course: 'BEng Civil Engineering',
-    photo: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: 'English programs, ECTS credits, safe campus, and living costs I could actually manage. Albania was the perfect choice for my future.',
-  },
-  {
-    name: 'Syed Ahmed',
-    course: 'MBA Business',
-    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: 'The counselling team handled everything — admission, visa, accommodation. I arrived fully prepared. My MBA is opening doors I never imagined.',
-  },
-  {
-    name: 'Priya Nair',
-    course: 'LLB Law',
-    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: 'The legal faculty is exceptional. Studying European law from inside Europe is a massive advantage. Part-time work covers most of my expenses!',
-  },
-  {
-    name: 'Daniel Osei',
-    course: 'BSc Info Technology',
-    photo: 'https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: 'Cutting-edge tech program. The EU pathway after graduation is a massive plus for my career goals.',
-  },
-  {
-    name: 'Fatima Malik',
-    course: 'MSc Architecture',
-    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80&auto=format&fit=crop&crop=face',
-    quote: "Studios, labs, and mentors that rival any European institution — at a fraction of the cost.",
-  }
-];
+import { getStudents } from '../lib/students-data';
 
 export default function Testimonials() {
   const sectionRef = useRef(null);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
+    setStudents(getStudents());
+  }, []);
+
+  useEffect(() => {
+    if (!students.length) return;
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -63,7 +31,7 @@ export default function Testimonials() {
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [students]);
 
 
   return (

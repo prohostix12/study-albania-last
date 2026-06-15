@@ -2,42 +2,19 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import styles from './Placement.module.css';
-
-const placements = [
-  {
-    id: 'internships',
-    title: 'Internships During Study',
-    desc: 'Our partnered universities maintain strong tie-ups with leading local and international companies, offering professional paid internships that start as early as your second year of study.',
-    points: ['Paid internship programs in major cities', 'Direct industry mentoring from experts', 'Practical real-world experience', 'Build a professional CV & portfolio'],
-    image: '/images/placement-internship.png',
-    color: '#4A7AFA',
-    layout: 'left'
-  },
-  {
-    id: 'jobs',
-    title: 'Global Job Opportunities',
-    desc: 'Albania\'s rapidly growing economy and strategic ties to EU markets provide graduates with exclusive access to high-demand roles both within the country and across the European Union.',
-    points: ['Access to IT, Engineering & Business roles', 'Direct placements in EU-based companies', 'Support for remote work opportunities', 'Personalized career counselling and prep'],
-    image: '/images/why-albania-bg.png',
-    color: '#7B4FFF',
-    layout: 'right'
-  },
-  {
-    id: 'pathway',
-    title: 'EU Higher Studies Pathway',
-    desc: 'Your Albanian degree is ECTS-recognized across Europe, serving as a powerful gateway for seamless applications to prestigious Master\'s or PhD programs throughout the continent.',
-    points: ['Direct admission to EU universities', 'Erasmus+ international mobility programs', 'Advanced research opportunities', 'Clear PhD pathways across European capitals'],
-    image: '/images/faq-students.png',
-    color: '#E8A020',
-    layout: 'left'
-  },
-];
+import { getPlacements } from '../lib/placements-data';
 
 export default function Placement() {
+  const [placements, setPlacements] = useState([]);
   const [visibleRows, setVisibleRows] = useState(new Set());
   const rowRefs = useRef([]);
 
   useEffect(() => {
+    setPlacements(getPlacements());
+  }, []);
+
+  useEffect(() => {
+    if (!placements.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -56,31 +33,26 @@ export default function Placement() {
       },
       { threshold: 0.2 }
     );
-
-    rowRefs.current.forEach(row => {
-      if (row) observer.observe(row);
-    });
-
+    rowRefs.current.forEach(row => { if (row) observer.observe(row); });
     return () => observer.disconnect();
-  }, []);
+  }, [placements]);
 
   return (
     <section className={styles.section} id="placement">
       <div className={styles.container}>
         {placements.map((p, i) => (
-          <div 
-            key={p.id} 
+          <div
+            key={p.id}
             data-index={i}
             ref={el => rowRefs.current[i] = el}
             className={`${styles.row} ${p.layout === 'right' ? styles.reverse : ''} ${visibleRows.has(String(i)) ? styles.revealed : ''}`}
           >
-            {/* Image Side */}
             <div className={styles.imageSide}>
               <div className={styles.imageFrame}>
-                <Image 
-                  src={p.image} 
-                  alt={p.title} 
-                  fill 
+                <Image
+                  src={p.image}
+                  alt={p.title}
+                  fill
                   className={styles.image}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
@@ -88,7 +60,6 @@ export default function Placement() {
               </div>
             </div>
 
-            {/* Content Side */}
             <div className={styles.contentSide}>
               <div className={styles.contentInner}>
                 <div className={styles.tag} style={{ color: p.color, background: `${p.color}11` }}>
@@ -96,7 +67,7 @@ export default function Placement() {
                 </div>
                 <h2 className={styles.title}>{p.title}</h2>
                 <p className={styles.description}>{p.desc}</p>
-                
+
                 <ul className={styles.points}>
                   {p.points.map((pt, idx) => (
                     <li key={idx} className={styles.point}>

@@ -1,44 +1,61 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import styles from './UniversitiesHome.module.css';
+import { getUniversities } from '../lib/universities-data';
+
+const FALLBACK_IMAGES = [
+  'https://images.unsplash.com/photo-1562774053-701939374585?w=900&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=900&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=900&q=80&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=80&auto=format&fit=crop',
+];
+
+const SLOT_KEYS = ['cit', 'epoka', 'wbu', 'mua', 'luarasi'];
 
 /*
   Layout:
 
   ┌──────────────────┬──────────────────────┐
-  │                  │  EPOKA  (flex-grow)  │  ← epoka & wbu share vertical space
-  │  CIT  (tall)     ├──────────────────────┤    hover one → other shrinks vertically
-  │                  │  WBU    (flex-grow)  │
+  │                  │  slot[1] (flex-grow) │  ← slot[1] & slot[2] share vertical space
+  │  slot[0] (tall)  ├──────────────────────┤
+  │                  │  slot[2] (flex-grow) │
   ├──────────┬───────┴──────────────────────┤
-  │  MUA     │  LUARASI                     │  ← mua & luarasi share horizontal space
+  │  slot[3] │  slot[4]                     │  ← share horizontal space
   └──────────┴──────────────────────────────┘
-
-  Accordion pairs:
-  1. CIT  ↔  rightPanel  (horizontal, flex-grow)
-  2. EPOKA ↔ WBU         (vertical,   flex-grow inside rightPanel)
-  3. MUA  ↔  LUARASI     (horizontal, flex-grow)
 */
 
-const UNIS = {
-  cit:     { id:1, name:'Canadian Institute of Technology',    badge:'Top Ranked',    color:'#C8102E', image:'https://images.unsplash.com/photo-1562774053-701939374585?w=900&q=80&auto=format&fit=crop' },
-  epoka:   { id:2, name:'Epoka University',                    badge:'EU Accredited', color:'#003087', image:'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=900&q=80&auto=format&fit=crop' },
-  wbu:     { id:3, name:'Western Balkans University',          badge:'Innovation Hub',color:'#1B5E20', image:'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&q=80&auto=format&fit=crop' },
-  mua:     { id:4, name:'Mediterranean University of Albania', badge:'International', color:'#006BA6', image:'https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=900&q=80&auto=format&fit=crop' },
-  luarasi: { id:5, name:'Luarasi University',                  badge:'Law Excellence',color:'#6A1B9A', image:'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=80&auto=format&fit=crop' },
-};
-
 const D = 1;      // default flex-grow
-const E = 1.35;   // expanded  (was 1.75)
-const S = 0.72;   // shrunk    (was 0.35)
+const E = 1.35;   // expanded
+const S = 0.72;   // shrunk
 
 export default function UniversitiesHome() {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [unis, setUnis] = useState({});
 
-  // 3 independent accordion states
-  const [lrHover,    setLrHover]    = useState(null); // 'cit' | 'right'   — left/right top
-  const [tbHover,    setTbHover]    = useState(null); // 'epoka' | 'wbu'   — top/bottom inside right panel
-  const [botHover,   setBotHover]   = useState(null); // 'mua' | 'luarasi' — bottom row
+  const [lrHover,  setLrHover]  = useState(null);
+  const [tbHover,  setTbHover]  = useState(null);
+  const [botHover, setBotHover] = useState(null);
+
+  useEffect(() => {
+    const data = getUniversities().slice(0, 5);
+    const mapped = {};
+    SLOT_KEYS.forEach((key, i) => {
+      const u = data[i];
+      if (u) {
+        mapped[key] = {
+          id: u.id,
+          name: u.name,
+          badge: u.badge || 'Accredited',
+          color: u.color || '#1A3C8F',
+          image: u.coverImage || FALLBACK_IMAGES[i],
+        };
+      }
+    });
+    setUnis(mapped);
+  }, []);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -49,19 +66,12 @@ export default function UniversitiesHome() {
     return () => obs.disconnect();
   }, []);
 
-  // CIT ↔ rightPanel (horizontal)
-  const citGrow   = lrHover === 'cit'   ? E : lrHover === 'right' ? S : D;
-  const rightGrow = lrHover === 'right' ? E : lrHover === 'cit'   ? S : D;
-
-  // EPOKA ↔ WBU (vertical inside right panel)
-  const epokaGrow = tbHover === 'epoka' ? E : tbHover === 'wbu'   ? S : D;
-  const wbuGrow   = tbHover === 'wbu'   ? E : tbHover === 'epoka' ? S : D;
-
-  // MUA ↔ LUARASI (horizontal)
+  const citGrow     = lrHover === 'cit'     ? E : lrHover === 'right'   ? S : D;
+  const rightGrow   = lrHover === 'right'   ? E : lrHover === 'cit'     ? S : D;
+  const epokaGrow   = tbHover === 'epoka'   ? E : tbHover === 'wbu'     ? S : D;
+  const wbuGrow     = tbHover === 'wbu'     ? E : tbHover === 'epoka'   ? S : D;
   const muaGrow     = botHover === 'mua'     ? E : botHover === 'luarasi' ? S : D;
   const luarasiGrow = botHover === 'luarasi' ? E : botHover === 'mua'     ? S : D;
-
-  // topSection ↔ bottomRow (vertical) — triggered when bottom row is hovered
   const topGrow = botHover ? S : D;
   const botGrow = botHover ? E : D;
 
@@ -92,7 +102,7 @@ export default function UniversitiesHome() {
               onMouseEnter={() => setLrHover('cit')}
               onMouseLeave={() => setLrHover(null)}
             >
-              <Card uni={UNIS.cit} visible={visible} delay={0} nameLg />
+              {unis.cit && <Card uni={unis.cit} visible={visible} delay={0} nameLg />}
             </div>
 
             {/* Right panel — EPOKA stacked on WBU, each with independent vertical accordion */}
@@ -107,7 +117,7 @@ export default function UniversitiesHome() {
                 onMouseEnter={() => { setLrHover('right'); setTbHover('epoka'); }}
                 onMouseLeave={() => { setLrHover(null);    setTbHover(null);   }}
               >
-                <Card uni={UNIS.epoka} visible={visible} delay={90} />
+                {unis.epoka && <Card uni={unis.epoka} visible={visible} delay={90} />}
               </div>
 
               {/* WBU */}
@@ -117,7 +127,7 @@ export default function UniversitiesHome() {
                 onMouseEnter={() => { setLrHover('right'); setTbHover('wbu'); }}
                 onMouseLeave={() => { setLrHover(null);    setTbHover(null);  }}
               >
-                <Card uni={UNIS.wbu} visible={visible} delay={180} />
+                {unis.wbu && <Card uni={unis.wbu} visible={visible} delay={180} />}
               </div>
             </div>
 
@@ -132,7 +142,7 @@ export default function UniversitiesHome() {
               onMouseEnter={() => setBotHover('mua')}
               onMouseLeave={() => setBotHover(null)}
             >
-              <Card uni={UNIS.mua} visible={visible} delay={270} nameSm />
+              {unis.mua && <Card uni={unis.mua} visible={visible} delay={270} nameSm />}
             </div>
 
             <div
@@ -141,7 +151,7 @@ export default function UniversitiesHome() {
               onMouseEnter={() => setBotHover('luarasi')}
               onMouseLeave={() => setBotHover(null)}
             >
-              <Card uni={UNIS.luarasi} visible={visible} delay={360} />
+              {unis.luarasi && <Card uni={unis.luarasi} visible={visible} delay={360} />}
             </div>
 
           </div>
@@ -165,7 +175,8 @@ export default function UniversitiesHome() {
 
 function Card({ uni, visible, delay, nameLg, nameSm }) {
   return (
-    <div
+    <Link
+      href={`/universities/${uni.id}`}
       className={`${styles.card} ${visible ? styles.cardVisible : ''}`}
       style={{ transitionDelay: `${delay}ms`, '--card-color': uni.color }}
     >
@@ -183,6 +194,6 @@ function Card({ uni, visible, delay, nameLg, nameSm }) {
           <path d="M7 17L17 7M17 7H7M17 7v10"/>
         </svg>
       </div>
-    </div>
+    </Link>
   );
 }

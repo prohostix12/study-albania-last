@@ -177,6 +177,80 @@
 }
 
 
+/* ── Section label ── */
+.sectionLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.25);
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+/* ── Courses ── */
+.coursesSection {
+  margin-bottom: 14px;
+}
+
+.courseTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.courseTag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #4A7AFA;
+  background: rgba(74, 122, 250, 0.1);
+  border: 1px solid rgba(74, 122, 250, 0.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.courseTagMore {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* ── Facilities ── */
+.facilitiesSection {
+  margin-bottom: 14px;
+}
+
+.facilitiesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.facilityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.4;
+}
+
+.facilityDot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #4A7AFA;
+  margin-top: 5px;
+}
+
 .statsGrid {
   display: flex;
   justify-content: space-between;

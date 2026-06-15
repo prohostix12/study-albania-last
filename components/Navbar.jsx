@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 
+function openApplyModal() {
+  window.dispatchEvent(new CustomEvent('open-apply-modal'));
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,7 +21,7 @@ export default function Navbar() {
     { label: 'Why Albania', href: '/#why-albania' },
     { label: 'Universities', href: '/universities' },
     { label: 'Placements', href: '/placements' },
-    { label: 'Living Cost', href: '/living-costs' },
+    { label: 'About Us', href: '/about' },
   ];
 
   return (
@@ -46,7 +50,13 @@ export default function Navbar() {
             <span className={styles.phoneIcon}>📞</span>
             <span>+355 00 000 0000</span>
           </a>
-          <Link href="/#apply" className={`btn btn-primary ${styles.navBtn}`}>Apply Now</Link>
+          <Link href="/login" className={styles.loginBtn}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            Login
+          </Link>
+          <button type="button" onClick={openApplyModal} className={`btn btn-primary ${styles.navBtn}`}>Apply Now</button>
         </div>
 
         {/* Hamburger */}
@@ -67,9 +77,12 @@ export default function Navbar() {
           </Link>
         ))}
         <a href="tel:+355000000000" className={styles.mobileLinkPhone}>📞 Call Now</a>
-        <Link href="/#apply" className={`btn btn-primary ${styles.mobileApplyBtn}`} onClick={() => setMenuOpen(false)}>
-          Apply Now
+        <Link href="/login" className={styles.mobileLoginBtn} onClick={() => setMenuOpen(false)}>
+          Login
         </Link>
+        <button type="button" className={`btn btn-primary ${styles.mobileApplyBtn}`} onClick={() => { setMenuOpen(false); openApplyModal(); }}>
+          Apply Now
+        </button>
       </div>
     </nav>
   );

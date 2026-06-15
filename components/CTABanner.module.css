@@ -105,16 +105,10 @@
 /* ── Email Form ── */
 .form {
   width: 100%;
-  max-width: 450px;
-  position: relative;
+  max-width: 500px;
   display: flex;
-  align-items: center;
-  background: #f4f4f4;
-  padding: 8px 8px 8px 24px;
-  border-radius: 100px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  /* Staggered animation */
+  flex-direction: column;
+  gap: 12px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1) 0.7s;
@@ -125,7 +119,16 @@
   transform: translateY(0);
 }
 
-.form:focus-within {
+.formRow {
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 8px 8px 8px 24px;
+  border-radius: 100px;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.formRow:focus-within {
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
   background: #fff;
 }
@@ -142,6 +145,24 @@
 
 .input::placeholder {
   color: #999;
+}
+
+.successMsg {
+  max-width: 500px;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 16px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .submitBtn {

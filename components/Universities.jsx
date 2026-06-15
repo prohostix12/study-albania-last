@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Universities.module.css';
 import { getUniversities } from '../lib/universities-data';
 
@@ -90,9 +91,9 @@ export default function Universities() {
                   <a href="#apply" className={styles.applyBtn}>
                     Apply Now
                   </a>
-                  <a href={uni.website} target="_blank" rel="noreferrer" className={styles.detailsBtn}>
-                    Explore
-                  </a>
+                  <Link href={`/universities/${uni.id}`} className={styles.detailsBtn}>
+                    Explore →
+                  </Link>
                 </div>
               </div>
             </div>

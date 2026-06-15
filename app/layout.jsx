@@ -1,4 +1,5 @@
 import './globals.css';
+import ClientShell from '../components/ClientShell';
 
 export const metadata = {
   title: 'Study in Albania | Affordable European Education | Apply Now',
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <ClientShell>{children}</ClientShell>
+      </body>
     </html>
   );
 }

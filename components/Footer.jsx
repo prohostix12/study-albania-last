@@ -1,8 +1,15 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styles from './Footer.module.css';
+import { getContact, defaultContact } from '../lib/contact-data';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [contact, setContact] = useState(defaultContact);
+
+  useEffect(() => {
+    setContact(getContact());
+  }, []);
 
   return (
     <footer className={styles.footer}>
@@ -16,7 +23,7 @@ export default function Footer() {
             </span>
           </a>
           <p className={styles.brandDesc}>
-            Your trusted gateway to affordable, world-class European education in Albania. 
+            Your trusted gateway to affordable, world-class European education in Albania.
             We provide end-to-end support for international students.
           </p>
           <div className={styles.socials}>
@@ -33,7 +40,7 @@ export default function Footer() {
             <li><a href="#why-albania">Why Albania</a></li>
             <li><a href="#universities">Universities</a></li>
             <li><a href="#placement">Placements</a></li>
-            <li><a href="#living-cost">Living Costs</a></li>
+            <li><a href="/about">About Us</a></li>
           </ul>
         </div>
 
@@ -50,18 +57,32 @@ export default function Footer() {
         <div className={styles.contactCol}>
           <h4 className={styles.linksTitle}>Contact Us</h4>
           <ul className={styles.contactList}>
-            <li>
-              <span className={styles.contactIcon}>📍</span>
-              <span>Tirana, Albania (Head Office)<br/>New Delhi, India (Regional)</span>
-            </li>
-            <li>
-              <span className={styles.contactIcon}>📞</span>
-              <a href="tel:+355000000000">+355 00 000 0000</a>
-            </li>
-            <li>
-              <span className={styles.contactIcon}>✉️</span>
-              <a href="mailto:hello@studyalbania.com">hello@studyalbania.com</a>
-            </li>
+            {contact.address && (
+              <li>
+                <span className={styles.contactIcon}>📍</span>
+                <span style={{ whiteSpace: 'pre-line' }}>{contact.address}</span>
+              </li>
+            )}
+            {contact.phone && (
+              <li>
+                <span className={styles.contactIcon}>📞</span>
+                <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+              </li>
+            )}
+            {contact.whatsapp && (
+              <li>
+                <span className={styles.contactIcon}>💬</span>
+                <a href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer">
+                  {contact.whatsapp} (WhatsApp)
+                </a>
+              </li>
+            )}
+            {contact.email && (
+              <li>
+                <span className={styles.contactIcon}>✉️</span>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

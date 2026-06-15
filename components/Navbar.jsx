@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styles from './Navbar.module.css';
+import { getContact, defaultContact } from '../lib/contact-data';
 
 function openApplyModal() {
   window.dispatchEvent(new CustomEvent('open-apply-modal'));
@@ -10,11 +11,16 @@ function openApplyModal() {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contact, setContact] = useState(defaultContact);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    getContact().then(setContact);
   }, []);
 
   const navLinks = [
@@ -46,10 +52,12 @@ export default function Navbar() {
 
         {/* CTAs */}
         <div className={styles.navCtas}>
-          <a href="tel:+355000000000" className={styles.phoneLink}>
-            <span className={styles.phoneIcon}>📞</span>
-            <span>+355 00 000 0000</span>
-          </a>
+          {contact.phone && (
+            <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className={styles.phoneLink}>
+              <span className={styles.phoneIcon}>📞</span>
+              <span>{contact.phone}</span>
+            </a>
+          )}
           <Link href="/login" className={styles.loginBtn}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
@@ -76,7 +84,9 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
-        <a href="tel:+355000000000" className={styles.mobileLinkPhone}>📞 Call Now</a>
+        {contact.phone && (
+          <a href={`tel:${contact.phone.replace(/\s/g, '')}`} className={styles.mobileLinkPhone}>📞 {contact.phone}</a>
+        )}
         <Link href="/login" className={styles.mobileLoginBtn} onClick={() => setMenuOpen(false)}>
           Login
         </Link>

@@ -12,7 +12,7 @@ const FALLBACK_IMAGES = [
   'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=80&auto=format&fit=crop',
 ];
 
-const SLOT_KEYS = ['cit', 'epoka', 'wbu', 'mua', 'luarasi'];
+const SLOT_KEYS = ['cit', 'epoka', 'mua', 'wbu', 'luarasi'];
 
 /*
   Layout:
@@ -123,40 +123,48 @@ export default function UniversitiesHome() {
               </div>
 
               {/* WBU */}
-              <div
-                className={styles.rightCard}
-                style={{ flexGrow: wbuGrow }}
-                onMouseEnter={() => { setLrHover('right'); setTbHover('wbu'); }}
-                onMouseLeave={() => { setLrHover(null);    setTbHover(null);  }}
-              >
-                {unis.wbu && <Card uni={unis.wbu} visible={visible} delay={180} />}
-              </div>
+              {unis.wbu && (
+                <div
+                  className={styles.rightCard}
+                  style={{ flexGrow: wbuGrow }}
+                  onMouseEnter={() => { setLrHover('right'); setTbHover('wbu'); }}
+                  onMouseLeave={() => { setLrHover(null);    setTbHover(null);  }}
+                >
+                  <Card uni={unis.wbu} visible={visible} delay={180} />
+                </div>
+              )}
             </div>
 
           </div>
 
           {/* ── BOTTOM ROW ── */}
-          <div className={styles.bottomRow} style={{ flexGrow: botGrow }}>
+          {(unis.mua || unis.luarasi) && (
+            <div className={styles.bottomRow} style={{ flexGrow: botGrow }}>
 
-            <div
-              className={styles.muaWrap}
-              style={{ flexGrow: muaGrow }}
-              onMouseEnter={() => setBotHover('mua')}
-              onMouseLeave={() => setBotHover(null)}
-            >
-              {unis.mua && <Card uni={unis.mua} visible={visible} delay={270} nameSm />}
+              {unis.mua && (
+                <div
+                  className={styles.muaWrap}
+                  style={{ flexGrow: muaGrow }}
+                  onMouseEnter={() => setBotHover('mua')}
+                  onMouseLeave={() => setBotHover(null)}
+                >
+                  <Card uni={unis.mua} visible={visible} delay={270} nameSm />
+                </div>
+              )}
+
+              {unis.luarasi && (
+                <div
+                  className={styles.luarasiWrap}
+                  style={{ flexGrow: luarasiGrow }}
+                  onMouseEnter={() => setBotHover('luarasi')}
+                  onMouseLeave={() => setBotHover(null)}
+                >
+                  <Card uni={unis.luarasi} visible={visible} delay={360} />
+                </div>
+              )}
+
             </div>
-
-            <div
-              className={styles.luarasiWrap}
-              style={{ flexGrow: luarasiGrow }}
-              onMouseEnter={() => setBotHover('luarasi')}
-              onMouseLeave={() => setBotHover(null)}
-            >
-              {unis.luarasi && <Card uni={unis.luarasi} visible={visible} delay={360} />}
-            </div>
-
-          </div>
+          )}
 
         </div>
 

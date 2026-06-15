@@ -10,8 +10,7 @@ export default function Universities() {
   const [universities, setUniversities] = useState([]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUniversities(getUniversities());
+    getUniversities().then(setUniversities);
   }, []);
 
   useEffect(() => {

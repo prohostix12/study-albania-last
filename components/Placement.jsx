@@ -10,7 +10,7 @@ export default function Placement() {
   const rowRefs = useRef([]);
 
   useEffect(() => {
-    setPlacements(getPlacements());
+    getPlacements().then(setPlacements);
   }, []);
 
   useEffect(() => {

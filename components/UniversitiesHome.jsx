@@ -40,21 +40,23 @@ export default function UniversitiesHome() {
   const [botHover, setBotHover] = useState(null);
 
   useEffect(() => {
-    const data = getUniversities().slice(0, 5);
-    const mapped = {};
-    SLOT_KEYS.forEach((key, i) => {
-      const u = data[i];
-      if (u) {
-        mapped[key] = {
-          id: u.id,
-          name: u.name,
-          badge: u.badge || 'Accredited',
-          color: u.color || '#1A3C8F',
-          image: u.coverImage || FALLBACK_IMAGES[i],
-        };
-      }
+    getUniversities().then(universities => {
+      const data = universities.slice(0, 5);
+      const mapped = {};
+      SLOT_KEYS.forEach((key, i) => {
+        const u = data[i];
+        if (u) {
+          mapped[key] = {
+            id: u.id,
+            name: u.name,
+            badge: u.badge || 'Accredited',
+            color: u.color || '#1A3C8F',
+            image: u.coverImage || FALLBACK_IMAGES[i],
+          };
+        }
+      });
+      setUnis(mapped);
     });
-    setUnis(mapped);
   }, []);
 
   useEffect(() => {

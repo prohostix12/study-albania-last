@@ -9,7 +9,7 @@ export default function Testimonials() {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    setStudents(getStudents());
+    getStudents().then(setStudents);
   }, []);
 
   useEffect(() => {

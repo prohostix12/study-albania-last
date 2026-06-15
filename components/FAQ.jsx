@@ -9,7 +9,7 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
-    setFaqs(getFaqs());
+    getFaqs().then(setFaqs);
   }, []);
 
   return (

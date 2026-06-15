@@ -38,9 +38,9 @@ export default function ApplyModal() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    saveEnquiry({ ...form, source: 'Apply Now Modal' });
+    await saveEnquiry({ ...form, source: 'Apply Now Modal' });
     setSubmitted(true);
   }
 

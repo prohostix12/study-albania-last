@@ -41,11 +41,11 @@ function Universities() {
   const [saved, setSaved] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-  useEffect(() => { setUniversities(getUniversities()); }, []);
+  useEffect(() => { getUniversities().then(setUniversities); }, []);
 
-  function persist(data) {
+  async function persist(data) {
     setUniversities(data);
-    saveUniversities(data);
+    await saveUniversities(data);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -441,16 +441,16 @@ function Enquiries() {
   const [enquiries, setEnquiries] = useState([]);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-  useEffect(() => { setEnquiries(getEnquiries()); }, []);
+  useEffect(() => { getEnquiries().then(setEnquiries); }, []);
 
-  function handleRead(id) {
-    markEnquiryRead(id);
+  async function handleRead(id) {
+    await markEnquiryRead(id);
     setEnquiries(prev => prev.map(e => e.id === id ? { ...e, read: true } : e));
   }
 
   function handleDelete(id) { setDeleteConfirm(id); }
-  function doDelete() {
-    deleteEnquiry(deleteConfirm);
+  async function doDelete() {
+    await deleteEnquiry(deleteConfirm);
     setEnquiries(prev => prev.filter(e => e.id !== deleteConfirm));
     setDeleteConfirm(null);
   }
@@ -533,11 +533,11 @@ function PlacementsAdmin() {
   const [saved, setSaved] = useState(false);
   const [pointInput, setPointInput] = useState('');
 
-  useEffect(() => { setPlacements(getPlacements()); }, []);
+  useEffect(() => { getPlacements().then(setPlacements); }, []);
 
-  function persist(data) {
+  async function persist(data) {
     setPlacements(data);
-    savePlacements(data);
+    await savePlacements(data);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -665,11 +665,11 @@ function FAQsAdmin() {
   const [saved, setSaved] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-  useEffect(() => { setFaqs(getFaqs()); }, []);
+  useEffect(() => { getFaqs().then(setFaqs); }, []);
 
-  function persist(data) {
+  async function persist(data) {
     setFaqs(data);
-    saveFaqs(data);
+    await saveFaqs(data);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -787,11 +787,11 @@ function StudentsAdmin() {
   const [saved, setSaved] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
-  useEffect(() => { setStudents(getStudents()); }, []);
+  useEffect(() => { getStudents().then(setStudents); }, []);
 
-  function persist(data) {
+  async function persist(data) {
     setStudents(data);
-    saveStudents(data);
+    await saveStudents(data);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -941,12 +941,12 @@ function ContactAdmin() {
   const [contact, setContact] = useState(defaultContact);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => { setContact(getContact()); }, []);
+  useEffect(() => { getContact().then(setContact); }, []);
 
   function field(key, value) { setContact(c => ({ ...c, [key]: value })); }
 
-  function persist() {
-    saveContact(contact);
+  async function persist() {
+    await saveContact(contact);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   }
@@ -1095,7 +1095,7 @@ export default function AdminPage() {
   }, [router]);
 
   useEffect(() => {
-    setUnreadCount(getEnquiries().filter(e => !e.read).length);
+    getEnquiries().then(enqs => setUnreadCount(enqs.filter(e => !e.read).length));
   }, [tab]);
 
   function handleLogout() {

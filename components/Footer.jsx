@@ -8,7 +8,7 @@ export default function Footer() {
   const [contact, setContact] = useState(defaultContact);
 
   useEffect(() => {
-    setContact(getContact());
+    getContact().then(setContact);
   }, []);
 
   return (

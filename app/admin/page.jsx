@@ -1103,17 +1103,22 @@ const NAV_ITEMS = [
   { key: 'contact',      icon: '📞', label: 'Contact' },
 ];
 
+const OLD_LS_KEYS = ['sia_universities', 'sia_faqs', 'sia_placements', 'sia_enquiries', 'sia_students', 'sia_contact'];
+
 export default function AdminPage() {
   const router = useRouter();
   const [tab, setTab] = useState('universities');
   const [unreadCount, setUnreadCount] = useState(0);
   const [authed, setAuthed] = useState(false);
+  const [seeding, setSeeding] = useState(false);
+  const [seedMsg, setSeedMsg] = useState('');
 
   useEffect(() => {
     if (!isLoggedIn()) {
       router.replace('/login');
     } else {
       setAuthed(true);
+      OLD_LS_KEYS.forEach(k => localStorage.removeItem(k));
     }
   }, [router]);
 
@@ -1124,6 +1129,23 @@ export default function AdminPage() {
   function handleLogout() {
     logout();
     router.replace('/login');
+  }
+
+  async function handleSeedDB() {
+    if (!confirm('This will overwrite ALL data in MongoDB with the built-in defaults. Continue?')) return;
+    setSeeding(true);
+    setSeedMsg('');
+    try {
+      const res = await fetch('/api/admin/seed', { method: 'POST' });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Seed failed');
+      setSeedMsg('✓ Database seeded successfully!');
+      setTimeout(() => setSeedMsg(''), 4000);
+    } catch (err) {
+      setSeedMsg('✗ ' + err.message);
+    } finally {
+      setSeeding(false);
+    }
   }
 
   if (!authed) return null;
@@ -1154,6 +1176,20 @@ export default function AdminPage() {
         <a href="/" className={styles.sidebarViewSite} target="_blank" rel="noopener noreferrer">
           ↗ View Site
         </a>
+        <button
+          className={styles.logoutBtn}
+          style={{ background: seeding ? '#374151' : '#1e3a5f', marginBottom: 4 }}
+          onClick={handleSeedDB}
+          disabled={seeding}
+        >
+          {seeding ? '⏳ Seeding…' : '🌱 Seed DB'}
+        </button>
+        {seedMsg && (
+          <p style={{ fontSize: '0.72rem', textAlign: 'center', padding: '4px 8px',
+            color: seedMsg.startsWith('✓') ? '#4ade80' : '#f87171' }}>
+            {seedMsg}
+          </p>
+        )}
         <button className={styles.logoutBtn} onClick={handleLogout}>
           ⏻ Logout
         </button>
